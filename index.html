@@ -1,0 +1,189 @@
+<body class="bg-gray-100 transition-colors duration-300 dark:bg-gray-900">
+  <header class="container mx-auto py-8">
+    <!-- Logo and navigation here -->
+    <a href="#" class="block text-center text-xl font-bold text-blue-600">John Doe</a>
+    <nav class="flex justify-center">
+      <button class="mobile-menu-button md:hidden">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <div class="hidden mobile-menu md:flex">
+        <a href="#about" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">About</a>
+        <a href="#portfolio" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Portfolio</a>
+        <a href="#certificates" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Certificates</a>
+        <a href="#contact" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Contact</a>
+        <a href="#education" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Education</a>
+        <a href="#skills" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Skills</a>
+        <a href="#hobbies" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Hobbies</a>
+      </div>
+    </nav>
+  </header>
+  <main class="container mx-auto">
+    <section class="hero" id="hero">
+      <!-- Hero content here -->
+      <div class="flex justify-center">
+        <img src="https://via.placeholder.com/1920x1080" alt="John Doe working on a computer" />
+      </div>
+      <h1 class="mt-8 rounded-lg text-center text-4xl font-bold text-gray-800 dark:text-gray-200">Welcome to my portfolio</h1>
+      <p class="mt-4 rounded-lg text-center text-lg text-gray-600 dark:text-gray-300">Showcasing my achievements in tech</p>
+      <a href="#about" class="rounded-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">About me</a>
+    </section>
+    <section class="about" id="about">
+      <!-- About content here -->
+      <div class="flex items-center rounded-lg">
+        <img src="https://via.placeholder.com/400x400" alt="A photo of John Doe" class="rounded-lg" />
+        <div class="ml-4">
+          <h2 class="rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">John Doe</h2>
+          <p class="mt-2 rounded-lg text-lg text-gray-600 dark:text-gray-300">Full-stack developer with 5+ years of experience</p>
+          <ul class="mt-2 list-inside list-disc rounded-lg text-gray-600 dark:text-gray-300">
+            <li>Python</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <li>Node.js</li>
+            <li>Django</li>
+            <li>PostgreSQL</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="portfolio" id="portfolio">
+      <!-- Portfolio content here -->
+      <h2 class="mb-4 rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">Recent projects</h2>
+      <div class="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/800x600" alt="Project 1 screenshot" class="rounded-t-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 1</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 1</p>
+            <a href="#project1" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/800x600" alt="Project 2 screenshot" class="rounded-t-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 2</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 2</p>
+            <a href="#project2" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/800x600" alt="Project 3 screenshot" class="rounded-t-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 3</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 3</p>
+            <a href="#project3" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/800x600" alt="Project 4 screenshot" class="rounded-t-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 4</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 4</p>
+            <a href="#project4" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="certificates" id="certificates">
+      <!-- Certificates content here -->
+      <h2 class="mb-4 rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">Certificates</h2>
+      <div class="grid grid-cols-2 gap-4 rounded-lg md:grid-cols-4">
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/200x200" alt="Certificate 1 logo" class="rounded-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 1</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Issued by XYZ</p>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/200x200" alt="Certificate 2 logo" class="rounded-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 2</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Issued by ABC</p>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/200x200" alt="Certificate 3 logo" class="rounded-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 3</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Issued by PQR</p>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <img src="https://via.placeholder.com/200x200" alt="Certificate 4 logo" class="rounded-lg" />
+          <div class="p-4">
+            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 4</h3>
+            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Issued by LMN</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="education" id="education">
+      <!-- Education content here -->
+      <h2 class="mb-4 rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">Education</h2>
+      <div class="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Degree Name</h3>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Institution Name</p>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Graduation Year</p>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Degree Name</h3>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Institution Name</p>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Graduation Year</p>
+        </div>
+      </div>
+    </section>
+    <section class="skills" id="skills">
+      <!-- Skills content here -->
+      <h2 class="mb-4 rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">Skills</h2>
+      <div class="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Skill Name</h3>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Skill Description</p>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Skill Name</h3>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Skill Description</p>
+        </div>
+      </div>
+    </section>
+    <section class="hobbies" id="hobbies">
+      <!-- Hobbies content here -->
+      <h2 class="mb-4 rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">Hobbies</h2>
+      <div class="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Hobby Name</h3>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Hobby Description</p>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white shadow-md">
+          <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Hobby Name</h3>
+          <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Hobby Description</p>
+        </div>
+      </div>
+    </section>
+    <section class="contact" id="contact">
+      <!-- Contact content here -->
+    </section>
+  </main>
+  <script>
+    // Smooth scrolling
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const sectionId = link.getAttribute('href');
+        document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Mobile menu
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
