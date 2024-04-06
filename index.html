@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document Title Goes Here</title>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" defer/>
-</head>
-<body>
+<body class="bg-gray-100 transition-colors duration-300 dark:bg-gray-900">
   <header class="container mx-auto py-8">
     <!-- Logo and navigation here -->
     <a href="#" class="block text-center text-xl font-bold text-blue-600">John Doe</a>
@@ -178,22 +169,21 @@
   </main>
   <script>
     // Smooth scrolling
-    const navLinks = document.querySelectorAll("nav a");
-    navLinks.forEach((link) => {
-      link.addEventListener("click", (e) => {
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
         e.preventDefault();
-        const sectionId = link.getAttribute("href");
-        document.querySelector(sectionId).scrollIntoView({ behavior: "smooth" });
+        const sectionId = link.getAttribute('href');
+        document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
       });
     });
 
     // Mobile menu
-    const mobileMenuButton = document.querySelector(".mobile-menu-button");
-    const mobileMenu = document.querySelector(".mobile-menu");
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
 
-    mobileMenuButton.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
     });
   </script>
 </body>
-</html>
