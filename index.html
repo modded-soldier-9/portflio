@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>John Doe's Portfolio</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 <body class="bg-gray-100 transition-colors duration-300 dark:bg-gray-900">
   <header class="container mx-auto py-8">
@@ -28,19 +28,19 @@
   <main class="container mx-auto">
     <section class="hero" id="hero">
       <div class="flex justify-center">
-        <img src="https://via.placeholder.com/1920x1080" alt="John Doe working on a computer" />
+        <img src="https://via.placeholder.com/1920x1080" alt="John Doe working on a computer" class="rounded-lg shadow-md" />
       </div>
-      <h1 class="mt-8 rounded-lg text-center text-4xl font-bold text-gray-800 dark:text-gray-200">Welcome to my portfolio</h1>
-      <p class="mt-4 rounded-lg text-center text-lg text-gray-600 dark:text-gray-300">Showcasing my achievements in tech</p>
-      <a href="#about" class="rounded-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">About me</a>
+      <h1 class="mt-8 text-4xl font-bold text-gray-800 dark:text-gray-200">Welcome to my portfolio</h1>
+      <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">Showcasing my achievements in tech</p>
+      <a href="#about" class="rounded-full bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">About me</a>
     </section>
     <section class="about" id="about">
       <div class="flex items-center rounded-lg">
         <img src="https://via.placeholder.com/400x400" alt="A photo of John Doe" class="rounded-lg" />
         <div class="ml-4">
-          <h2 class="rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">John Doe</h2>
-          <p class="mt-2 rounded-lg text-lg text-gray-600 dark:text-gray-300">Full-stack developer with 5+ years of experience</p>
-          <ul class="mt-2 list-inside list-disc rounded-lg text-gray-600 dark:text-gray-300">
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">John Doe</h2>
+          <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">Full-stack developer with 5+ years of experience</p>
+          <ul class="mt-2 list-inside list-disc text-gray-600 dark:text-gray-300">
             <li>Python</li>
             <li>JavaScript</li>
             <li>React</li>
@@ -52,66 +52,65 @@
       </div>
     </section>
     <section class="portfolio" id="portfolio">
-      <h2 class="mb-4 rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">Recent projects</h2>
+      <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-gray-200">Recent projects</h2>
       <div class="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
           <img src="https://via.placeholder.com/800x600" alt="Project 1 screenshot" class="rounded-t-lg" />
           <div class="p-4">
-            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 1</h3>
-            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 1</p>
-            <a href="#project1" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 1</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 1</p>
+            <a href="#project1" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
           </div>
         </div>
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
           <img src="https://via.placeholder.com/800x600" alt="Project 2 screenshot" class="rounded-t-lg" />
           <div class="p-4">
-            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 2</h3>
-            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 2</p>
-            <a href="#project2" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 2</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 2</p>
+            <a href="#project2" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
           </div>
         </div>
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
           <img src="https://via.placeholder.com/800x600" alt="Project 3 screenshot" class="rounded-t-lg" />
           <div class="p-4">
-            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 3</h3>
-            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 3</p>
-            <a href="#project3" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 3</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 3</p>
+            <a href="#project3" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
           </div>
         </div>
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
           <img src="https://via.placeholder.com/800x600" alt="Project 4 screenshot" class="rounded-t-lg" />
           <div class="p-4">
-            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Project 4</h3>
-            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">A description of Project 4</p>
-            <a href="#project4" class="mt-4 rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600">View project</a>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 4</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 4</p>
+            <a href="#project4" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
           </div>
         </div>
       </div>
     </section>
     <section class="certificates" id="certificates">
-      <h2 class="mb-4 rounded-lg text-2xl font-bold text-gray-800 dark:text-gray-200">Certificates</h2>
+      <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-gray-200">Certificates</h2>
       <div class="grid grid-cols-2 gap-4 rounded-lg md:grid-cols-4">
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
           <img src="https://via.placeholder.com/200x200" alt="Certificate 1 logo" class="rounded-lg" />
           <div class="p-4">
-            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 1</h3>
-            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Issued by XYZ</p>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 1</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">Issued by XYZ</p>
           </div>
         </div>
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
           <img src="https://via.placeholder.com/200x200" alt="Certificate 2 logo" class="rounded-lg" />
           <div class="p-4">
-            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 2</h3>
-            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Issued by ABC</p>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 2</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">Issued by ABC</p>
           </div>
         </div>
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
           <img src="https://via.placeholder.com/200x200" alt="Certificate 3 logo" class="rounded-lg" />
           <div class="p-4">
-            <h3 class="rounded-lg text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 3</h3>
-            <p class="mt-2 rounded-lg text-gray-600 dark:text-gray-300">Issued by PQR</p>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 3</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">Issued by PQR</p>
           </div>
         </div>
         <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/200x200" alt="Certificate 4 logo" class="rounded-lg" />
-          <div class="p-4
+          <img src="https://via.placeholder.com/200
