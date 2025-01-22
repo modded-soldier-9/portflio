@@ -4,7 +4,7 @@ A modern, responsive portfolio website showcasing my professional experience, pr
 
 ## 🌟 Live Demo
 
-Visit the live portfolio at: [https://modded-soldier-9.github.io/test_portflio_webpage/](https://modded-soldier-9.github.io/test_portflio_webpage/)
+Visit the live portfolio at: [https://modded-soldier-9.github.io/portflio/](https://modded-soldier-9.github.io/portflio/)
 
 ## ✨ Features
 
