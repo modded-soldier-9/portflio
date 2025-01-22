@@ -3,117 +3,625 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>John Doe's Portfolio</title>
+  <title>Mohamed Elsheikh - Portfolio</title>
+  
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/terminal.css">
+  
+  <!-- Credly Badges Script -->
+  <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 </head>
 <body class="bg-gray-100 transition-colors duration-300 dark:bg-gray-900">
-  <header class="container mx-auto py-8">
-    <nav class="flex justify-center">
-      <button class="mobile-menu-button md:hidden" aria-label="Toggle mobile menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-      <div class="hidden mobile-menu md:flex">
-        <a href="#about" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">About</a>
-        <a href="#portfolio" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Portfolio</a>
-        <a href="#certificates" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Certificates</a>
-        <a href="#education" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Education</a>
-        <a href="#skills" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Skills</a>
-        <a href="#hobbies" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Hobbies</a>
-        <a href="#contact" class="mx-4 text-gray-600 hover:text-blue-600 dark:text-gray-300">Contact</a>
+  <div class="bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 min-h-screen">
+    <!-- Header -->
+    <header class="container mx-auto py-8">
+      <nav class="flex justify-between items-center px-4">
+        <h1 class="text-2xl font-bold gradient-text">Mohamed Elsheikh</h1>
+        <button class="mobile-menu-button md:hidden" aria-label="Toggle mobile menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <div class="hidden mobile-menu md:flex space-x-6">
+          <a href="#about" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 hover:scale-110 transition-transform">About</a>
+          <a href="#experience" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 hover:scale-110 transition-transform">Experience</a>
+          <a href="#certificates" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 hover:scale-110 transition-transform">Certificates</a>
+          <a href="#projects" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 hover:scale-110 transition-transform">Projects</a>
+          <a href="#contact" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 hover:scale-110 transition-transform">Contact</a>
+        </div>
+      </nav>
+    </header>
+    
+    <main class="container mx-auto px-4">
+      <!-- Hero Section -->
+      <section class="hero min-h-[90vh] flex flex-col justify-center items-center text-center relative" id="hero">
+        <div class="animate-float mb-12">
+          <div class="relative">
+            <div class="absolute inset-0 bg-blue-500 rounded-full opacity-10 blur-2xl transform scale-110"></div>
+            <img src="assets/images/personal.jpg" alt="Mohamed Elsheikh"
+                 class="w-48 h-48 rounded-full shadow-xl mx-auto relative z-10
+                        border-4 border-white dark:border-gray-800" />
+          </div>
+        </div>
+
+        <h1 class="text-6xl font-bold gradient-text mb-4 section-fade-in">Mohamed Elsheikh</h1>
+
+        <div id="typewriter" class="h-12 mb-6 section-fade-in">
+          <span class="text-2xl text-blue-600 typewriter"></span>
+        </div>
+
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto section-fade-in">
+          Dedicated technology professional with expertise in cybersecurity and IT management, 
+          specializing in API development and information security.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 section-fade-in">
+          <a href="#contact" class="btn-primary bg-blue-600 text-white px-8 py-3 rounded-full relative overflow-hidden">
+            <span class="relative z-10">Contact Me</span>
+          </a>
+          <a href="#about" class="btn-primary border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full 
+                                hover:bg-blue-600 hover:text-white relative overflow-hidden">
+            <span class="relative z-10">About Me</span>
+          </a>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div class="w-6 h-10 border-2 border-blue-600 rounded-full flex justify-center pt-2">
+            <div class="w-1 h-3 bg-blue-600 rounded-full animate-pulse"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience Section -->
+      <div id="experience">
+        <section id="experience" class="py-20 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-tr from-blue-50/30 via-white/80 to-transparent dark:from-gray-800/30 dark:via-gray-900/80"></div>
+          <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text section-fade-in">Professional Experience</h2>
+            <div class="space-y-8">
+              <!-- Current Role -->
+              <div class="bg-white/80 dark:bg-gray-800/80 p-8 rounded-xl shadow-lg backdrop-blur-sm card-hover section-fade-in">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                  <div>
+                    <h3 class="text-2xl font-bold gradient-text mb-2">Head of Cyber Security</h3>
+                    <p class="text-gray-600 dark:text-gray-300 flex items-center">
+                      <i class="fas fa-building mr-2"></i>Quota Libex
+                    </p>
+                  </div>
+                  <span class="mt-2 md:mt-0 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                    <i class="far fa-clock mr-2"></i>July 2024 - Present
+                  </span>
+                </div>
+                <ul class="list-none space-y-3 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-3 text-blue-500"></i>
+                    <span>Lead cybersecurity initiatives and API development</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-3 text-blue-500"></i>
+                    <span>Implement robust security measures and protocols</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-3 text-blue-500"></i>
+                    <span>Manage security infrastructure and team operations</span>
+                  </li>
+                </ul>
+              </div>
+        
+              <!-- Previous Role -->
+              <div class="bg-white/80 dark:bg-gray-800/80 p-8 rounded-xl shadow-lg backdrop-blur-sm card-hover section-fade-in">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                  <div>
+                    <h3 class="text-2xl font-bold gradient-text mb-2">Information Technology Manager</h3>
+                    <p class="text-gray-600 dark:text-gray-300 flex items-center">
+                      <i class="fas fa-building mr-2"></i>MIdostransport
+                    </p>
+                  </div>
+                  <span class="mt-2 md:mt-0 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                    <i class="far fa-clock mr-2"></i>November 2016 - Present
+                  </span>
+                </div>
+                <ul class="list-none space-y-3 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-3 text-blue-500"></i>
+                    <span>Oversee IT infrastructure and systems management</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-3 text-blue-500"></i>
+                    <span>Lead technology implementation and maintenance</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-3 text-blue-500"></i>
+                    <span>Manage IT projects and team coordination</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </nav>
-  </header>
-  <main class="container mx-auto">
-    <section class="hero" id="hero">
-      <div class="flex justify-center">
-        <img src="https://via.placeholder.com/1920x1080" alt="John Doe working on a computer" class="rounded-lg shadow-md" />
+
+      <!-- Certifications Section -->
+      <div id="certificates">
+        <section id="certificates" class="py-20 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white/90 to-transparent dark:from-gray-800/30 dark:via-gray-900/90"></div>
+          <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text section-fade-in">Certifications</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+              <!-- AWS Cloud Architecting -->
+              <div class="bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg backdrop-blur-sm card-hover section-fade-in">
+                <div class="flex items-center justify-center mb-6">
+                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b355c7a0-5150-42a1-9660-25c6adb6c434" data-share-badge-host="https://www.credly.com"></div>
+                </div>
+                <div class="text-center">
+                  <h3 class="text-xl font-bold gradient-text mb-3">AWS Academy Cloud Architecting</h3>
+                  <p class="text-gray-600 dark:text-gray-300 mb-2">Amazon Web Services (AWS)</p>
+                  <p class="text-sm text-blue-600 dark:text-blue-400 mb-4">April 2024</p>
+                  <a href="https://www.credly.com/badges/b355c7a0-5150-42a1-9660-25c6adb6c434/public_url" 
+                     target="_blank"
+                     class="btn-primary inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
+                    <i class="fas fa-external-link-alt mr-2"></i>View Credential
+                  </a>
+                </div>
+              </div>
+        
+              <!-- AWS Cloud Foundations -->
+              <div class="bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg backdrop-blur-sm card-hover section-fade-in">
+                <div class="flex items-center justify-center mb-6">
+                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="1fcdf7e7-e223-40d4-8a19-02f3adabb05b" data-share-badge-host="https://www.credly.com"></div>
+                </div>
+                <div class="text-center">
+                  <h3 class="text-xl font-bold gradient-text mb-3">AWS Academy Cloud Foundations</h3>
+                  <p class="text-gray-600 dark:text-gray-300 mb-2">Amazon Web Services (AWS)</p>
+                  <p class="text-sm text-blue-600 dark:text-blue-400 mb-4">March 2024</p>
+                  <a href="https://www.credly.com/badges/1fcdf7e7-e223-40d4-8a19-02f3adabb05b/public_url" 
+                     target="_blank"
+                     class="btn-primary inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
+                    <i class="fas fa-external-link-alt mr-2"></i>View Credential
+                  </a>
+                </div>
+              </div>
+        
+              <!-- Responsive Web Design -->
+              <div class="bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg backdrop-blur-sm card-hover section-fade-in">
+                <div class="flex items-center justify-center mb-6 text-6xl text-gray-800 dark:text-gray-200">
+                  <i class="fab fa-free-code-camp"></i>
+                </div>
+                <div class="text-center">
+                  <h3 class="text-xl font-bold gradient-text mb-3">Responsive Web Design</h3>
+                  <p class="text-gray-600 dark:text-gray-300 mb-2">freeCodeCamp</p>
+                  <p class="text-sm text-blue-600 dark:text-blue-400 mb-4">February 2024</p>
+                  <a href="https://freecodecamp.org/certification/Mohamed_Elsheikh/responsive-web-design" 
+                     target="_blank"
+                     class="btn-primary inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
+                    <i class="fas fa-external-link-alt mr-2"></i>View Credential
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <h1 class="mt-8 text-4xl font-bold text-gray-800 dark:text-gray-200">Welcome to my portfolio</h1>
-      <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">Showcasing my achievements in tech</p>
-      <a href="#about" class="rounded-full bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">About me</a>
-    </section>
-    <section class="about" id="about">
-      <div class="flex items-center rounded-lg">
-        <img src="https://via.placeholder.com/400x400" alt="A photo of John Doe" class="rounded-lg" />
-        <div class="ml-4">
-          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">John Doe</h2>
-          <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">Full-stack developer with 5+ years of experience</p>
-          <ul class="mt-2 list-inside list-disc text-gray-600 dark:text-gray-300">
-            <li>Python</li>
-            <li>JavaScript</li>
-            <li>React</li>
-            <li>Node.js</li>
-            <li>Django</li>
-            <li>PostgreSQL</li>
-          </ul>
-        </div>
+
+      <!-- Mentorship & Speaking Section -->
+      <div id="mentorship">
+        <section class="py-20 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-bl from-blue-50/30 via-white/90 to-transparent dark:from-gray-800/30 dark:via-gray-900/90"></div>
+          <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text section-fade-in">Mentorship & Speaking</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div class="bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg backdrop-blur-sm card-hover section-fade-in">
+                <h3 class="text-2xl font-bold gradient-text mb-6">AFRITECH Mentorship Impact</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  As a mentor at the AFRITECH event, I had the privilege of guiding students in building innovative solutions for a cashless campus. Through dedicated mentorship and technical guidance, three teams under my supervision achieved remarkable success by securing positions in the top 3.
+                </p>
+                <ul class="list-none space-y-4">
+                  <li class="flex items-start text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-trophy mt-1 mr-3 text-yellow-500"></i>
+                    <span>Led 3 teams to top positions in the competition</span>
+                  </li>
+                  <li class="flex items-start text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-lightbulb mt-1 mr-3 text-blue-500"></i>
+                    <span>Provided technical guidance on cashless payment solutions</span>
+                  </li>
+                  <li class="flex items-start text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-users mt-1 mr-3 text-green-500"></i>
+                    <span>Delivered motivational talks inspiring future tech leaders</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="section-fade-in">
+                <div class="relative group">
+                  <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                  <img src="assets/images/confrence.png" alt="Speaking at Conference"
+                       class="w-full h-auto rounded-xl shadow-xl transform transition-transform duration-300 group-hover:scale-[1.02]" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
-    <section class="portfolio" id="portfolio">
-      <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-gray-200">Recent projects</h2>
-      <div class="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/800x600" alt="Project 1 screenshot" class="rounded-t-lg" />
-          <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 1</h3>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 1</p>
-            <a href="#project1" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
+
+      <!-- Terminal Projects Section -->
+      <div id="projects">
+        <section class="py-20 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-bl from-blue-50/30 via-white/90 to-transparent dark:from-gray-800/30 dark:via-gray-900/90"></div>
+          <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text section-fade-in">Projects</h2>
+            
+            <!-- Terminal Windows Grid -->
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              <!-- Password Generator Terminal -->
+              <div class="terminal-window bg-gray-900" data-name="password-generator">
+                <div class="terminal-titlebar">
+                  <div class="window-controls">
+                    <div class="control-button control-close"></div>
+                    <div class="control-button control-minimize"></div>
+                    <div class="control-button control-maximize"></div>
+                  </div>
+                  <div class="window-title">password-generator — -zsh</div>
+                </div>
+                <div class="terminal-content p-4">
+                  <div class="command-line mb-4">
+                    <span class="text-green-400">➜</span>
+                    <span class="text-blue-400"> ~/projects</span>
+                    <span class="text-gray-400">$</span>
+                    <span class="command typing"></span>
+                  </div>
+                  <div class="project-details hidden">
+                    <div class="text-gray-300 mb-4">
+                      <pre class="command-output">
+# 🔐 Password Generator
+
+A sleek and user-friendly web application that generates strong, random passwords
+tailored to your preferences, ensuring maximum security for your online accounts.
+
+## 🚀 Features
+* 🌏 Multi-language Support (English, Spanish, Arabic)
+* 🌓 Dark/Light Mode Toggle
+* 📏 Custom password length (8-32 characters)
+* 🔣 Custom symbols support
+* 💪 Password strength indicator
+* 📋 One-click copy to clipboard
+* 🕰️ Password history tracking
+
+## Tech Stack
+* HTML5
+* CSS3 (Modern, minimalistic styling)
+* JavaScript
+
+## Demo
+https://modded-soldier-9.github.io/Password_Generator/</pre>
+                      <button class="copy-button">
+                        <i class="fas fa-copy mr-1"></i>Copy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DuckyScript Terminal -->
+              <div class="terminal-window bg-gray-900" data-name="duckyscript">
+                <div class="terminal-titlebar">
+                  <div class="window-controls">
+                    <div class="control-button control-close"></div>
+                    <div class="control-button control-minimize"></div>
+                    <div class="control-button control-maximize"></div>
+                  </div>
+                  <div class="window-title">duckyscript — -zsh</div>
+                </div>
+                <div class="terminal-content p-4">
+                  <div class="command-line mb-4">
+                    <span class="text-green-400">➜</span>
+                    <span class="text-blue-400"> ~/projects</span>
+                    <span class="text-gray-400">$</span>
+                    <span class="command typing"></span>
+                  </div>
+                  <div class="project-details hidden">
+                    <div class="text-gray-300 mb-4">
+                      <pre class="command-output">
+# 🦆 DuckyScript Converter
+
+A web application that converts text into DuckyScript for USB Rubber Ducky.
+Simplifies the process of creating keystroke injection scripts.
+
+## ✨ Key Features
+* ⚡️ Real-time conversion
+* 📋 One-click copy functionality
+* 🎨 Clean, intuitive interface
+* 💻 Support for all DuckyScript commands
+* 🔄 Instant preview
+
+## Tech Stack
+* HTML5
+* CSS3
+* JavaScript
+
+## Live Demo
+https://modded-soldier-9.github.io/text2ducky/</pre>
+                    <button class="copy-button">
+                      <i class="fas fa-copy mr-1"></i>Copy
+                    </button>
+                  </div>
+              </div>
+            </div>
+
+            <!-- Modern Projects Display (Initially Hidden) -->
+            <div class="modern-projects opacity-0 mt-12 space-y-8">
+              <!-- Password Generator -->
+              <!-- Password Generator -->
+              <div class="bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg backdrop-blur-sm">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                  <h3 class="text-2xl font-bold gradient-text mb-2">🔐 Password Generator</h3>
+                  <a href="https://modded-soldier-9.github.io/Password_Generator/"
+                     target="_blank"
+                     class="mt-2 md:mt-0 bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200 transition duration-300 flex items-center">
+                     <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+                  </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                  A sleek and user-friendly web application that generates strong, random passwords
+                  tailored to your preferences, ensuring maximum security for your online accounts.
+                </p>
+                <div class="space-y-6">
+                  <div class="bg-gray-50/50 dark:bg-gray-700/50 p-6 rounded-lg backdrop-blur-sm">
+                    <h4 class="text-lg font-semibold gradient-text mb-4 flex items-center">
+                      <i class="fas fa-star mr-2"></i>Key Features
+                    </h4>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-300">
+                      <li class="flex items-center"><i class="fas fa-globe mr-2 text-blue-500"></i>Multi-language Support</li>
+                      <li class="flex items-center"><i class="fas fa-moon mr-2 text-blue-500"></i>Dark/Light Mode</li>
+                      <li class="flex items-center"><i class="fas fa-lock mr-2 text-blue-500"></i>Custom Symbols</li>
+                      <li class="flex items-center"><i class="fas fa-history mr-2 text-blue-500"></i>Password History</li>
+                    </ul>
+                  </div>
+                  <div class="bg-gray-50/50 dark:bg-gray-700/50 p-6 rounded-lg backdrop-blur-sm">
+                    <h4 class="text-lg font-semibold gradient-text mb-4 flex items-center">
+                      <i class="fas fa-code mr-2"></i>Technologies Used
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="skill-tag bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                        <i class="fab fa-html5 mr-2"></i>HTML
+                      </span>
+                      <span class="skill-tag bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                        <i class="fab fa-css3-alt mr-2"></i>CSS
+                      </span>
+                      <span class="skill-tag bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                        <i class="fab fa-js-square mr-2"></i>JavaScript
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DuckyScript Converter -->
+              <div class="bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg backdrop-blur-sm">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                  <h3 class="text-2xl font-bold gradient-text mb-2">DuckyScript Converter</h3>
+                  <a href="https://modded-soldier-9.github.io/text2ducky/"
+                     target="_blank"
+                     class="mt-2 md:mt-0 bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200 transition duration-300 flex items-center">
+                     <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+                  </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                  A web application that converts text into DuckyScript for USB Rubber Ducky.
+                  Simplifies the process of creating keystroke injection scripts.
+                </p>
+                <div class="space-y-6">
+                  <div class="bg-gray-50/50 dark:bg-gray-700/50 p-6 rounded-lg backdrop-blur-sm">
+                    <h4 class="text-lg font-semibold gradient-text mb-4 flex items-center">
+                      <i class="fas fa-star mr-2"></i>Key Features
+                    </h4>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-300">
+                      <li class="flex items-center"><i class="fas fa-bolt mr-2 text-blue-500"></i>Real-time Conversion</li>
+                      <li class="flex items-center"><i class="fas fa-copy mr-2 text-blue-500"></i>One-click Copy</li>
+                      <li class="flex items-center"><i class="fas fa-paint-brush mr-2 text-blue-500"></i>Clean Interface</li>
+                    </ul>
+                  </div>
+                  <div class="bg-gray-50/50 dark:bg-gray-700/50 p-6 rounded-lg backdrop-blur-sm">
+                    <h4 class="text-lg font-semibold gradient-text mb-4 flex items-center">
+                      <i class="fas fa-code mr-2"></i>Technologies Used
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="skill-tag bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                        <i class="fab fa-html5 mr-2"></i>HTML
+                      </span>
+                      <span class="skill-tag bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                        <i class="fab fa-css3-alt mr-2"></i>CSS
+                      </span>
+                      <span class="skill-tag bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                        <i class="fab fa-js-square mr-2"></i>JavaScript
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/800x600" alt="Project 2 screenshot" class="rounded-t-lg" />
-          <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 2</h3>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 2</p>
-            <a href="#project2" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/800x600" alt="Project 3 screenshot" class="rounded-t-lg" />
-          <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 3</h3>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 3</p>
-            <a href="#project3" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/800x600" alt="Project 4 screenshot" class="rounded-t-lg" />
-          <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Project 4</h3>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">A description of Project 4</p>
-            <a href="#project4" class="mt-4 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">View project</a>
-          </div>
-        </div>
+        </section>
       </div>
-    </section>
-    <section class="certificates" id="certificates">
-      <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-gray-200">Certificates</h2>
-      <div class="grid grid-cols-2 gap-4 rounded-lg md:grid-cols-4">
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/200x200" alt="Certificate 1 logo" class="rounded-lg" />
-          <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 1</h3>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">Issued by XYZ</p>
+
+      <!-- Contact Section -->
+      <div id="contact">
+        <section id="contact" class="py-20 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-tr from-blue-50/30 via-white/90 to-transparent dark:from-gray-800/30 dark:via-gray-900/90"></div>
+          <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text section-fade-in">Get In Touch</h2>
+            <div class="bg-white/90 dark:bg-gray-800/90 rounded-xl shadow-lg backdrop-blur-sm p-8 card-hover section-fade-in">
+              <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="flex items-center space-x-4">
+                    <div class="bg-blue-100 p-4 rounded-full text-blue-600">
+                      <i class="fas fa-map-marker-alt text-xl"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold gradient-text">Location</h3>
+                      <p class="text-gray-600 dark:text-gray-300">Johannesburg Metropolitan Area</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-4">
+                    <div class="bg-blue-100 p-4 rounded-full text-blue-600">
+                      <i class="fas fa-envelope text-xl"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold gradient-text">Email</h3>
+                      <a href="mailto:mohamedelsheikh4859@gmail.com" 
+                         class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 flex items-center">
+                        <span>mohamedelsheikh4859@gmail.com</span>
+                        <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <form id="contactForm" class="space-y-6" onsubmit="handleSubmit(event)">
+                  <div class="relative group">
+                    <input type="text" id="name" name="name" required
+                           class="peer w-full px-4 py-3 rounded-lg border-2 border-gray-300 
+                                  bg-white/50 backdrop-blur-sm transition-all duration-300
+                                  focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+                                  dark:bg-gray-800/50 dark:border-gray-600 dark:text-gray-200
+                                  placeholder-transparent" 
+                           placeholder="Your Name">
+                    <label for="name" 
+                           class="absolute left-4 -top-3 bg-white dark:bg-gray-800 px-2 text-sm
+                                  transition-all duration-300 transform
+                                  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
+                                  peer-placeholder-shown:top-3 peer-focus:-top-3 peer-focus:text-blue-600 
+                                  peer-focus:text-sm dark:text-gray-300">
+                      Your Name
+                    </label>
+                    <div class="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <i class="fas fa-user text-gray-400"></i>
+                    </div>
+                  </div>
+        
+                  <div class="relative group">
+                    <input type="email" id="email" name="email" required
+                           class="peer w-full px-4 py-3 rounded-lg border-2 border-gray-300 
+                                  bg-white/50 backdrop-blur-sm transition-all duration-300
+                                  focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+                                  dark:bg-gray-800/50 dark:border-gray-600 dark:text-gray-200
+                                  placeholder-transparent" 
+                           placeholder="Your Email">
+                    <label for="email" 
+                           class="absolute left-4 -top-3 bg-white dark:bg-gray-800 px-2 text-sm
+                                  transition-all duration-300 transform
+                                  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
+                                  peer-placeholder-shown:top-3 peer-focus:-top-3 peer-focus:text-blue-600 
+                                  peer-focus:text-sm dark:text-gray-300">
+                      Your Email
+                    </label>
+                    <div class="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                  </div>
+        
+                  <div class="relative group">
+                    <textarea id="message" name="message" rows="4" required
+                              class="peer w-full px-4 py-3 rounded-lg border-2 border-gray-300 
+                                     bg-white/50 backdrop-blur-sm transition-all duration-300
+                                     focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+                                     dark:bg-gray-800/50 dark:border-gray-600 dark:text-gray-200
+                                     placeholder-transparent resize-none"
+                              placeholder="Your Message"></textarea>
+                    <label for="message" 
+                           class="absolute left-4 -top-3 bg-white dark:bg-gray-800 px-2 text-sm
+                                  transition-all duration-300 transform
+                                  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
+                                  peer-placeholder-shown:top-3 peer-focus:-top-3 peer-focus:text-blue-600 
+                                  peer-focus:text-sm dark:text-gray-300">
+                      Your Message
+                    </label>
+                    <div class="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <i class="fas fa-message text-gray-400"></i>
+                    </div>
+                  </div>
+        
+                  <button type="submit"
+                          class="relative w-full bg-blue-600 text-white px-6 py-3 rounded-lg 
+                                 overflow-hidden transition-all duration-300 
+                                 hover:bg-blue-700 transform hover:scale-[1.02] 
+                                 active:scale-[0.98] disabled:opacity-50 
+                                 disabled:cursor-not-allowed disabled:transform-none">
+                    <span class="relative z-10 flex items-center justify-center">
+                      <i class="fas fa-paper-plane mr-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                      <span>Send Message</span>
+                    </span>
+                    <div class="absolute inset-0 bg-blue-700 transform scale-x-0 transition-transform origin-left group-hover:scale-x-100"></div>
+                  </button>
+        
+                  <!-- Success Message -->
+                  <div id="successMessage" class="hidden">
+                    <div class="flex items-center p-4 bg-green-100 dark:bg-green-800 rounded-lg">
+                      <i class="fas fa-check-circle text-green-500 dark:text-green-300 mr-3"></i>
+                      <p class="text-green-700 dark:text-green-200">Message sent successfully!</p>
+                    </div>
+                  </div>
+        
+                  <!-- Error Message -->
+                  <div id="errorMessage" class="hidden">
+                    <div class="flex items-center p-4 bg-red-100 dark:bg-red-800 rounded-lg">
+                      <i class="fas fa-exclamation-circle text-red-500 dark:text-red-300 mr-3"></i>
+                      <p class="text-red-700 dark:text-red-200">There was an error sending your message. Please try again.</p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
+        </section>
+      </div>
+
+      <!-- Note for Implementation -->
+      <!--
+      To implement:
+      1. Copy content from each component file
+      2. Replace these placeholder comments
+      3. Update image paths to use assets/images/
+      4. Ensure all sections maintain proper structure
+      5. Test navigation and scroll behavior
+      -->
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="relative bg-gradient-to-b from-gray-900 to-gray-800 text-white py-12 overflow-hidden">
+    <div class="absolute inset-0 bg-blue-600/5"></div>
+    <div class="max-w-6xl mx-auto px-4 relative z-10">
+      <div class="flex flex-col items-center space-y-6">
+        <h3 class="text-2xl font-bold gradient-text">Mohamed Elsheikh</h3>
+        <p class="text-gray-400">Head of Cyber Security & IT Manager</p>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white transform hover:scale-110 transition-all duration-300">
+            <i class="fab fa-linkedin text-2xl"></i>
+          </a>
+          <a href="https://github.com/modded-soldier-9" class="text-gray-400 hover:text-white transform hover:scale-110 transition-all duration-300">
+            <i class="fab fa-github text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transform hover:scale-110 transition-all duration-300">
+            <i class="fab fa-twitter text-2xl"></i>
+          </a>
         </div>
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/200x200" alt="Certificate 2 logo" class="rounded-lg" />
-          <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 2</h3>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">Issued by ABC</p>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/200x200" alt="Certificate 3 logo" class="rounded-lg" />
-          <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Certificate 3</h3>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">Issued by PQR</p>
-          </div>
-        </div>
-        <!-- New Code -->
-        <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="1fcdf7e7-e223-40d4-8a19-02f3adabb05b" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-        <!-- New Code -->
-        <div class="overflow-hidden rounded-lg bg-white shadow-md">
-          <img src="https://via.placeholder.com/200
+        <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full my-6"></div>
+        <p class="text-gray-400">&copy; 2024 Mohamed Elsheikh. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dark Mode Toggle -->
+  <button id="dark-mode-toggle" class="fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 p-3 rounded-full shadow-lg z-50 hover:scale-110 transition-transform">
+    <i class="fas fa-moon dark:hidden"></i>
+    <i class="fas fa-sun hidden dark:block"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/typewriter.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/terminal.js"></script>
+</body>
+</html>
