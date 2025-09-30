@@ -17,23 +17,30 @@ declare global {
 
 // Initialize Google Analytics
 export const initGA = () => {
-  if (typeof window !== 'undefined' && GA_TRACKING_ID) {
-    // Load Google Analytics script
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
-    document.head.appendChild(script);
+  if (typeof window !== 'undefined' && GA_TRACKING_ID && GA_TRACKING_ID !== 'G-XXXXXXXXXX') {
+    try {
+      // Load Google Analytics script
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
+      script.onerror = () => {
+        console.warn('Failed to load Google Analytics script');
+      };
+      document.head.appendChild(script);
 
-    // Initialize gtag
-    window.gtag = window.gtag || function(...args: unknown[]) {
-      (window.gtag.q = window.gtag.q || []).push(args);
-    };
-    
-    window.gtag('js', new Date());
-    window.gtag('config', GA_TRACKING_ID, {
-      page_title: document.title,
-      page_location: window.location.href,
-    });
+      // Initialize gtag
+      window.gtag = window.gtag || function(...args: unknown[]) {
+        (window.gtag.q = window.gtag.q || []).push(args);
+      };
+      
+      window.gtag('js', new Date());
+      window.gtag('config', GA_TRACKING_ID, {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    } catch (error) {
+      console.warn('Google Analytics initialization failed:', error);
+    }
   }
 };
 
@@ -100,66 +107,83 @@ export const trackScrollDepth = (depth: number) => {
 // Analytics component
 const Analytics = () => {
   useEffect(() => {
-    initGA();
+    try {
+      initGA();
 
-    // Track page load
-    trackPageView(window.location.pathname);
+      // Track page load
+      trackPageView(window.location.pathname);
+    } catch (error) {
+      console.warn('Analytics initialization failed:', error);
+    }
 
     // Track scroll depth
     let maxScrollDepth = 0;
     const trackScroll = () => {
-      const scrollDepth = Math.round(
-        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-      );
-      
-      if (scrollDepth > maxScrollDepth) {
-        maxScrollDepth = scrollDepth;
+      try {
+        const scrollDepth = Math.round(
+          (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+        );
         
-        // Track milestone scroll depths
-        if (scrollDepth >= 25 && maxScrollDepth < 25) {
-          trackScrollDepth(25);
-        } else if (scrollDepth >= 50 && maxScrollDepth < 50) {
-          trackScrollDepth(50);
-        } else if (scrollDepth >= 75 && maxScrollDepth < 75) {
-          trackScrollDepth(75);
-        } else if (scrollDepth >= 90 && maxScrollDepth < 90) {
-          trackScrollDepth(90);
+        if (scrollDepth > maxScrollDepth) {
+          maxScrollDepth = scrollDepth;
+          
+          // Track milestone scroll depths
+          if (scrollDepth >= 25 && maxScrollDepth < 25) {
+            trackScrollDepth(25);
+          } else if (scrollDepth >= 50 && maxScrollDepth < 50) {
+            trackScrollDepth(50);
+          } else if (scrollDepth >= 75 && maxScrollDepth < 75) {
+            trackScrollDepth(75);
+          } else if (scrollDepth >= 90 && maxScrollDepth < 90) {
+            trackScrollDepth(90);
+          }
         }
+      } catch (error) {
+        console.warn('Scroll tracking error:', error);
       }
     };
 
     // Track section views using Intersection Observer
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0
-    };
+    let sectionObserver: IntersectionObserver | null = null;
+    try {
+      const observerOptions = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px',
+        threshold: 0
+      };
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionName = entry.target.id || entry.target.className;
-          trackSectionView(sectionName);
-        }
+      sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionName = entry.target.id || entry.target.className;
+            trackSectionView(sectionName);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections
+      const sections = document.querySelectorAll('section[id]');
+      sections.forEach((section) => {
+        sectionObserver?.observe(section);
       });
-    }, observerOptions);
-
-    // Observe all sections
-    const sections = document.querySelectorAll('section[id]');
-    sections.forEach((section) => {
-      sectionObserver.observe(section);
-    });
+    } catch (error) {
+      console.warn('Intersection Observer setup failed:', error);
+    }
 
     // Add scroll listener
     window.addEventListener('scroll', trackScroll, { passive: true });
 
     // Track performance metrics
     const trackPerformance = () => {
-      if ('performance' in window) {
-        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-        const loadTime = navigation.loadEventEnd - navigation.loadEventStart;
-        
-        trackEvent('page_load_time', 'performance', 'load_time', Math.round(loadTime));
+      try {
+        if ('performance' in window) {
+          const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+          const loadTime = navigation.loadEventEnd - navigation.loadEventStart;
+          
+          trackEvent('page_load_time', 'performance', 'load_time', Math.round(loadTime));
+        }
+      } catch (error) {
+        console.warn('Performance tracking error:', error);
       }
     };
 
@@ -169,7 +193,9 @@ const Analytics = () => {
     return () => {
       window.removeEventListener('scroll', trackScroll);
       window.removeEventListener('load', trackPerformance);
-      sectionObserver.disconnect();
+      if (sectionObserver) {
+        sectionObserver.disconnect();
+      }
     };
   }, []);
 

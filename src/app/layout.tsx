@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     template: "%s | Mohamed Elsheikh"
   },
   description: "Head of Cyber Security at Quota Libex | AWS Academy Graduate | Cybersecurity Expert | Web Developer | IT Management Leader",
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   keywords: [
     "Mohamed Elsheikh",
     "Cybersecurity",
