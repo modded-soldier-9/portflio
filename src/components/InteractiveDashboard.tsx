@@ -52,11 +52,29 @@ const InteractiveDashboard = ({ className = '' }: InteractiveDashboardProps) => 
         setLoading(true);
         
         // Fetch user data
-        const userResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+        const userResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+          headers: {
+            'Accept': 'application/vnd.github.v3+json',
+          },
+        });
+        
+        if (!userResponse.ok) {
+          throw new Error(`GitHub API error: ${userResponse.status}`);
+        }
+        
         await userResponse.json();
         
         // Fetch repositories
-        const reposResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+        const reposResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`, {
+          headers: {
+            'Accept': 'application/vnd.github.v3+json',
+          },
+        });
+        
+        if (!reposResponse.ok) {
+          throw new Error(`GitHub API error: ${reposResponse.status}`);
+        }
+        
         const reposData = await reposResponse.json();
         
         // Calculate language distribution

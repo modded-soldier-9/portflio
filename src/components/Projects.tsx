@@ -36,11 +36,16 @@ const Projects = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12&type=public`
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12&type=public`,
+          {
+            headers: {
+              'Accept': 'application/vnd.github.v3+json',
+            },
+          }
         );
         
         if (!response.ok) {
-          throw new Error('Failed to fetch repositories');
+          throw new Error(`GitHub API error: ${response.status}`);
         }
         
         const data = await response.json();
