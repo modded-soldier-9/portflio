@@ -2,290 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-  Design system
-  -------------
-  Single source of truth for color. Every surface/text/border reads from a
-  semantic token so light and dark themes stay in sync automatically.
-  Accent: emerald (primary) + cyan (secondary) — a calm, technical identity.
-*/
+/* ─── Design Tokens ─────────────────────────────────────────────────────── */
 
 :root,
 .dark {
   color-scheme: dark;
-
-  --background: #0a0e13;
-  --background-elevated: #0e141b;
-  --foreground: #e7edf3;
-  --card: #10171f;
-  --card-hover: #141c26;
-  --border: #1d2833;
-  --muted: #9aa7b4;
-  --muted-strong: #c2ccd6;
-
-  --primary: #34d399;
-  --primary-strong: #10b981;
-  --primary-soft: rgba(52, 211, 153, 0.12);
-  --accent: #22d3ee;
-  --accent-strong: #06b6d4;
-
+  --bg: #0a0f14;
+  --bg-raised: #111820;
+  --fg: #e4ebf2;
+  --fg-muted: #8899a8;
+  --fg-faint: #5d6e7d;
+  --border: #1c2630;
+  --accent: #34d399;
+  --accent-dim: rgba(52, 211, 153, 0.12);
   --ring: #34d399;
-  --gradient-primary: linear-gradient(120deg, #34d399 0%, #22d3ee 100%);
-  --grid-line: rgba(148, 163, 184, 0.06);
 }
 
 .light {
   color-scheme: light;
-
-  --background: #f6f8fa;
-  --background-elevated: #ffffff;
-  --foreground: #0b1219;
-  --card: #ffffff;
-  --card-hover: #f2f5f8;
-  --border: #e2e8f0;
-  --muted: #5b6875;
-  --muted-strong: #33404d;
-
-  --primary: #059669;
-  --primary-strong: #047857;
-  --primary-soft: rgba(5, 150, 105, 0.1);
-  --accent: #0891b2;
-  --accent-strong: #0e7490;
-
+  --bg: #fafbfc;
+  --bg-raised: #ffffff;
+  --fg: #0f1419;
+  --fg-muted: #57606a;
+  --fg-faint: #8b949e;
+  --border: #d8dee4;
+  --accent: #059669;
+  --accent-dim: rgba(5, 150, 105, 0.08);
   --ring: #059669;
-  --gradient-primary: linear-gradient(120deg, #059669 0%, #0891b2 100%);
-  --grid-line: rgba(15, 23, 42, 0.05);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ─── Reset & Base ──────────────────────────────────────────────────────── */
 
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.65;
-  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Section anchors clear the fixed navigation */
-section[id],
-[id].scroll-anchor {
-  scroll-margin-top: 5.5rem;
-}
+/* Anchor offset for fixed nav */
+[id] { scroll-margin-top: 5rem; }
 
-/* Accessible focus ring for every interactive element */
-:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+/* Focus */
+:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
 /* Skip link */
 .skip-link {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -120%);
-  z-index: 100;
-  padding: 0.625rem 1.25rem;
-  background: var(--primary);
-  color: #05140d;
-  font-weight: 600;
+  position: fixed; top: 0; left: 50%; transform: translate(-50%, -100%);
+  z-index: 100; padding: 0.5rem 1rem;
+  background: var(--accent); color: #000; font-weight: 600;
   border-radius: 0 0 0.5rem 0.5rem;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s;
 }
-
-.skip-link:focus {
-  transform: translate(-50%, 0);
-}
+.skip-link:focus { transform: translate(-50%, 0); }
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 999px;
-  border: 2px solid var(--background);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-/* Subtle technical grid backdrop — replaces the particle noise */
-.grid-backdrop {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-}
-
-/* Typography helpers */
-.gradient-text {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-.mono {
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-}
-
-.eyebrow {
-  @apply mono inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em];
-  color: var(--primary);
-}
-
-/* Section heading */
-.section-heading {
-  @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-balance;
-  color: var(--foreground);
-}
-
-.section-subtitle {
-  color: var(--muted);
-  @apply text-base md:text-lg leading-relaxed text-pretty;
-}
-
-/* Cards */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 1.75rem;
-  transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  border-color: var(--primary);
-  background: var(--card-hover);
-}
-
-.cert-card {
-  background: var(--background-elevated);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-.cert-card:hover {
-  border-color: var(--primary);
-}
-
-/* Timeline */
-.timeline-item {
-  position: relative;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 1.75rem;
-  margin-bottom: 1.5rem;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-.timeline-item:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
-}
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 1.25rem;
-  bottom: 1.25rem;
-  width: 3px;
-  border-radius: 999px;
-  background: var(--gradient-primary);
-}
-
-/* Mentorship card */
-.mentorship-card {
-  position: relative;
-  overflow: hidden;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 1.25rem;
-  padding: 2.5rem;
-  margin-bottom: 2rem;
-}
-
-/* Skill tags */
-.skill-tag {
-  @apply inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-300;
-  background: var(--primary-soft);
-  color: var(--primary);
-  border: 1px solid var(--border);
-}
-.skill-tag:hover {
-  border-color: var(--primary);
-}
-
-/* Buttons */
-.btn-primary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-full transition-all duration-300;
-  background: var(--primary);
-  color: #05140d;
-}
-.btn-primary:hover {
-  background: var(--primary-strong);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-full transition-all duration-300;
-  background: transparent;
-  color: var(--foreground);
-  border: 1px solid var(--border);
-}
-.btn-secondary:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-/* Glass surfaces (nav) */
-.glass-dark {
-  background: color-mix(in srgb, var(--background) 72%, transparent);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-}
-
-/* Motion — gentle, and disabled for users who ask for reduced motion */
-@keyframes floatSoft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.float-soft {
-  animation: floatSoft 6s ease-in-out infinite;
-}
+/* ─── Motion ────────────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }

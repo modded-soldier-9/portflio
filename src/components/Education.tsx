@@ -1,56 +1,22 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Calendar, GraduationCap } from 'lucide-react';
 import { education } from '@/data/education';
 
 const Education = () => {
   return (
-    <section id="education" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <span className="eyebrow justify-center">Academic</span>
-          <h2 className="section-heading mt-4">Education</h2>
-        </motion.div>
+    <section id="education" className="py-20">
+      <div className="container">
+        <h2 className="text-2xl font-bold mb-10">Education</h2>
 
-        <div className="max-w-3xl mx-auto space-y-6">
-          {education.map((edu, index) => (
-            <motion.div
-              key={edu.institution}
-              className="timeline-item pl-6"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <GraduationCap className="w-5 h-5 text-primary" aria-hidden="true" />
-                <h3 className="text-lg font-semibold text-foreground">{edu.institution}</h3>
+        <div className="space-y-6 max-w-3xl">
+          {education.map((edu) => (
+            <div key={edu.institution}>
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                <h3 className="text-base font-semibold">{edu.institution}</h3>
+                {edu.duration && (
+                  <span className="font-mono text-xs text-fg-faint">{edu.duration}</span>
+                )}
               </div>
-
-              <p className="text-muted-strong mb-2">{edu.degree}</p>
-
-              {edu.duration && (
-                <div className="flex items-center gap-1.5 text-sm text-muted mb-3">
-                  <Calendar className="w-4 h-4" aria-hidden="true" />
-                  <span>{edu.duration}</span>
-                </div>
-              )}
-
-              <div className="flex flex-wrap gap-2">
-                {edu.skills.map((skill) => (
-                  <span key={skill} className="skill-tag">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+              <p className="text-sm text-fg-muted mt-1">{edu.degree}</p>
+            </div>
           ))}
         </div>
       </div>

@@ -11,7 +11,7 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <>
       <Navigation />
       <main id="main">
         <Hero />
@@ -21,13 +21,9 @@ export default function Home() {
         <Certifications />
         <Education />
         <Mentorship />
-        <section id="contact" className="py-24 relative">
-          <div className="container mx-auto px-6">
-            <ContactForm />
-          </div>
-        </section>
+        <ContactForm />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
