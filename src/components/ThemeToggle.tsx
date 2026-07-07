@@ -36,9 +36,10 @@ const ThemeToggle = () => {
   return (
     <motion.button
       onClick={toggleTheme}
-      className="relative p-3 rounded-xl bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 hover:bg-gray-700/50 transition-all duration-300 group"
+      className="relative p-2.5 rounded-lg bg-card border border-border text-muted hover:text-foreground hover:border-primary transition-colors group"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      aria-label={getTooltip()}
       title={getTooltip()}
     >
       <AnimatePresence mode="wait">
@@ -48,7 +49,7 @@ const ThemeToggle = () => {
           animate={{ rotate: 0, opacity: 1 }}
           exit={{ rotate: 90, opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="text-gray-300 group-hover:text-white"
+          className="text-current"
         >
           {getIcon()}
         </motion.div>

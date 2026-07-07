@@ -1,234 +1,125 @@
-'use client';
+import { siteConfig } from '@/config/site';
 
+/**
+ * JSON-LD structured data for SEO.
+ * Server component — no 'use client' needed since it only emits static script tags.
+ */
 const StructuredData = () => {
+  const { url } = siteConfig;
+
   const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Mohamed Elsheikh",
-    "jobTitle": "Head of Cyber Security",
-    "description": "Head of Cyber Security at Quota Libex | AWS Academy Graduate | Cybersecurity Expert | Web Developer | IT Management Leader",
-    "url": "https://mohamedelsheikh.dev",
-    "image": "https://mohamedelsheikh.dev/personal.jpg",
-    "sameAs": [
-      "https://github.com/modded-soldier-9",
-      "https://linkedin.com/in/mohamed-elsheikh",
-      "https://twitter.com/mohamedelsheikh"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "South Africa",
-      "addressRegion": "Johannesburg Metropolitan Area"
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: siteConfig.name,
+    jobTitle: siteConfig.role,
+    description: `${siteConfig.role} at ${siteConfig.company} | AWS Academy Graduate | Cybersecurity Expert | IT Management Leader`,
+    url,
+    image: `${url}/personal.jpg`,
+    sameAs: [siteConfig.github.url, siteConfig.linkedin],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'South Africa',
+      addressRegion: 'Johannesburg Metropolitan Area',
     },
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Quota Libex",
-      "url": "https://quotalibex.com"
+    worksFor: {
+      '@type': 'Organization',
+      name: siteConfig.company,
     },
-    "alumniOf": [
-      {
-        "@type": "EducationalOrganization",
-        "name": "AWS Academy"
-      }
+    alumniOf: [{ '@type': 'EducationalOrganization', name: 'AWS Academy' }],
+    knowsAbout: [
+      'Cybersecurity',
+      'Cloud Computing',
+      'Web Development',
+      'IT Management',
+      'Python',
+      'JavaScript',
+      'AWS',
+      'Security Protocols',
+      'API Development',
+      'Network Security',
     ],
-    "knowsAbout": [
-      "Cybersecurity",
-      "Cloud Computing",
-      "Web Development",
-      "IT Management",
-      "Python",
-      "JavaScript",
-      "AWS",
-      "Security Protocols",
-      "API Development",
-      "Network Security"
+    hasCredential: [
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'AWS Academy Graduate - Cloud Architecting',
+        credentialCategory: 'certification',
+        recognizedBy: { '@type': 'Organization', name: 'Amazon Web Services (AWS)' },
+        dateIssued: '2024-04-01',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'AWS Academy Graduate - Cloud Foundations',
+        credentialCategory: 'certification',
+        recognizedBy: { '@type': 'Organization', name: 'Amazon Web Services (AWS)' },
+        dateIssued: '2024-03-01',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'Microsoft Cybersecurity Analyst',
+        credentialCategory: 'certification',
+        recognizedBy: { '@type': 'Organization', name: 'Microsoft' },
+        dateIssued: '2025-03-01',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'Google Cybersecurity',
+        credentialCategory: 'certification',
+        recognizedBy: { '@type': 'Organization', name: 'Google' },
+        dateIssued: '2025-03-01',
+      },
     ],
-    "hasCredential": [
+    hasOccupation: [
       {
-        "@type": "EducationalOccupationalCredential",
-        "name": "AWS Academy Graduate - AWS Academy Cloud Architecting",
-        "credentialCategory": "degree",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Amazon Web Services (AWS)"
-        },
-        "dateIssued": "2024-04-01"
+        '@type': 'Occupation',
+        name: 'Head of Cyber Security',
+        occupationLocation: { '@type': 'City', name: 'Johannesburg' },
+        hiringOrganization: { '@type': 'Organization', name: 'Quota Libex' },
       },
       {
-        "@type": "EducationalOccupationalCredential",
-        "name": "AWS Academy Graduate - AWS Academy Cloud Foundations",
-        "credentialCategory": "degree",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Amazon Web Services (AWS)"
-        },
-        "dateIssued": "2024-03-01"
+        '@type': 'Occupation',
+        name: 'Information Technology Manager',
+        occupationLocation: { '@type': 'Country', name: 'South Africa' },
+        hiringOrganization: { '@type': 'Organization', name: 'Midostransport' },
       },
-      {
-        "@type": "EducationalOccupationalCredential",
-        "name": "Microsoft Cybersecurity Analyst",
-        "credentialCategory": "certification",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Microsoft"
-        },
-        "dateIssued": "2025-03-01"
-      },
-      {
-        "@type": "EducationalOccupationalCredential",
-        "name": "Google Cybersecurity",
-        "credentialCategory": "certification",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Google"
-        },
-        "dateIssued": "2025-03-01"
-      }
     ],
-    "hasOccupation": [
-      {
-        "@type": "Occupation",
-        "name": "Head of Cyber Security",
-        "occupationLocation": {
-          "@type": "City",
-          "name": "Johannesburg Metropolitan Area"
-        },
-        "datePosted": "2024-07-01",
-        "hiringOrganization": {
-          "@type": "Organization",
-          "name": "Quota Libex"
-        }
-      },
-      {
-        "@type": "Occupation",
-        "name": "Information Technology Manager",
-        "occupationLocation": {
-          "@type": "Country",
-          "name": "South Africa"
-        },
-        "datePosted": "2016-11-01",
-        "hiringOrganization": {
-          "@type": "Organization",
-          "name": "Midostransport"
-        }
-      }
-    ]
   };
 
   const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Mohamed Elsheikh Portfolio",
-    "url": "https://mohamedelsheikh.dev",
-    "description": "Professional portfolio showcasing cybersecurity expertise, cloud computing skills, and web development projects",
-    "author": {
-      "@type": "Person",
-      "name": "Mohamed Elsheikh"
-    },
-    "inLanguage": "en-US",
-    "copyrightYear": "2024",
-    "genre": "Portfolio",
-    "keywords": [
-      "cybersecurity",
-      "cloud computing",
-      "web development",
-      "AWS",
-      "Python",
-      "JavaScript",
-      "IT management",
-      "security protocols"
-    ]
-  };
-
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Mohamed Elsheikh Professional Services",
-    "url": "https://mohamedelsheikh.dev",
-    "logo": "https://mohamedelsheikh.dev/logo.png",
-    "description": "Professional cybersecurity and IT management services",
-    "founder": {
-      "@type": "Person",
-      "name": "Mohamed Elsheikh"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "South Africa",
-      "addressRegion": "Johannesburg Metropolitan Area"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "Professional Services",
-      "email": "contact@mohamedelsheikh.dev",
-      "availableLanguage": "English"
-    },
-    "sameAs": [
-      "https://github.com/modded-soldier-9",
-      "https://linkedin.com/in/mohamed-elsheikh"
-    ]
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: `${siteConfig.name} Portfolio`,
+    url,
+    description:
+      'Professional portfolio showcasing cybersecurity expertise, cloud computing skills, and web development projects.',
+    author: { '@type': 'Person', name: siteConfig.name },
+    inLanguage: 'en-US',
   };
 
   const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://mohamedelsheikh.dev#home"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Experience",
-        "item": "https://mohamedelsheikh.dev#experience"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Projects",
-        "item": "https://mohamedelsheikh.dev#projects"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "Skills",
-        "item": "https://mohamedelsheikh.dev#skills"
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "name": "Contact",
-        "item": "https://mohamedelsheikh.dev#contact"
-      }
-    ]
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: url },
+      { '@type': 'ListItem', position: 2, name: 'Experience', item: `${url}#experience` },
+      { '@type': 'ListItem', position: 3, name: 'Projects', item: `${url}#projects` },
+      { '@type': 'ListItem', position: 4, name: 'Skills', item: `${url}#skills` },
+      { '@type': 'ListItem', position: 5, name: 'Contact', item: `${url}#contact` },
+    ],
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(personSchema)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(websiteSchema)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchema)
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
     </>
   );

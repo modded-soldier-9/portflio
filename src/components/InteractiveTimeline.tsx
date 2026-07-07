@@ -61,23 +61,24 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
       {/* Timeline Navigation */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center space-x-4">
-          <h3 className="text-2xl font-bold text-white">Interactive Timeline</h3>
+          <h3 className="text-2xl font-bold text-foreground">Interactive Timeline</h3>
           <div className="flex items-center space-x-2">
             <motion.button
               onClick={prevItem}
-              className="p-2 bg-gray-800/50 border border-gray-700/50 rounded-lg hover:bg-gray-700/50 transition-colors"
+              aria-label="Previous role"
+              className="p-2 bg-card border border-border rounded-lg text-foreground hover:border-primary transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ChevronLeft className="w-4 h-4 text-white" />
+              <ChevronLeft className="w-4 h-4" aria-hidden="true" />
             </motion.button>
             
             <motion.button
               onClick={togglePlay}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+              className={`px-4 py-2 rounded-lg font-medium border transition-colors ${
                 isPlaying
-                  ? 'bg-red-500/20 text-red-400 border border-red-500/30'
-                  : 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
+                  ? 'bg-red-500/15 text-red-400 border-red-500/30'
+                  : 'bg-primary/15 text-primary border-primary/30'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -87,16 +88,17 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
             
             <motion.button
               onClick={nextItem}
-              className="p-2 bg-gray-800/50 border border-gray-700/50 rounded-lg hover:bg-gray-700/50 transition-colors"
+              aria-label="Next role"
+              className="p-2 bg-card border border-border rounded-lg text-foreground hover:border-primary transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ChevronRight className="w-4 h-4 text-white" />
+              <ChevronRight className="w-4 h-4" aria-hidden="true" />
             </motion.button>
           </div>
         </div>
 
-        <div className="text-sm text-gray-400">
+        <div className="text-sm text-muted">
           {activeIndex + 1} of {items.length}
         </div>
       </div>
@@ -110,8 +112,9 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
             className={`w-4 h-4 rounded-full transition-all duration-300 ${
               index === activeIndex
                 ? 'bg-indigo-500 scale-125'
-                : 'bg-gray-600 hover:bg-gray-500'
+                : 'bg-border hover:bg-muted'
             }`}
+            aria-label={`View role ${index + 1}`}
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
           />
@@ -133,7 +136,7 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
             className="relative"
           >
             {/* Timeline Dot */}
-            <div className="absolute left-6 top-8 w-4 h-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-gray-900 z-10"></div>
+            <div className="absolute left-6 top-8 w-4 h-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-background z-10"></div>
 
             {/* Content Card */}
             <motion.div
@@ -151,31 +154,31 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
                 <div className="flex-1">
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                      <h3 className="text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                         {currentItem.title}
                       </h3>
                       <div className="flex items-center space-x-2 text-indigo-400 font-semibold">
                         <Building className="w-5 h-5" />
                         <span>{currentItem.company}</span>
-                        <span className="text-gray-400">•</span>
-                        <span className="text-gray-300">{currentItem.type}</span>
+                        <span className="text-muted">•</span>
+                        <span className="text-muted-strong">{currentItem.type}</span>
                       </div>
                     </div>
                     
                     <div className="flex flex-col lg:items-end space-y-2 mt-4 lg:mt-0">
-                      <div className="flex items-center space-x-2 text-gray-400">
-                        <Calendar className="w-4 h-4" />
+                      <div className="flex items-center space-x-2 text-muted">
+                        <Calendar className="w-4 h-4" aria-hidden="true" />
                         <span className="text-sm">{currentItem.duration}</span>
                       </div>
-                      <div className="flex items-center space-x-2 text-gray-400">
-                        <MapPin className="w-4 h-4" />
+                      <div className="flex items-center space-x-2 text-muted">
+                        <MapPin className="w-4 h-4" aria-hidden="true" />
                         <span className="text-sm">{currentItem.location}</span>
                       </div>
                     </div>
                   </div>
 
                   {currentItem.description && (
-                    <p className="text-gray-300 mb-6 leading-relaxed">
+                    <p className="text-muted-strong mb-6 leading-relaxed">
                       {currentItem.description}
                     </p>
                   )}
@@ -183,7 +186,7 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Responsibilities */}
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
+                      <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center">
                         Key Responsibilities
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                       </h4>
@@ -191,7 +194,7 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
                         {currentItem.responsibilities.map((responsibility, idx) => (
                           <motion.li
                             key={idx}
-                            className="flex items-start space-x-3 text-gray-300"
+                            className="flex items-start space-x-3 text-muted-strong"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}
@@ -205,7 +208,7 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
 
                     {/* Skills */}
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-4">Technologies & Skills</h4>
+                      <h4 className="text-lg font-semibold text-foreground mb-4">Technologies &amp; Skills</h4>
                       <div className="flex flex-wrap gap-3">
                         {currentItem.skills.map((skill, idx) => (
                           <motion.span
@@ -226,12 +229,12 @@ const InteractiveTimeline = ({ items, className = '' }: InteractiveTimelineProps
                   {/* Achievements */}
                   {currentItem.achievements && currentItem.achievements.length > 0 && (
                     <div className="mt-6">
-                      <h4 className="text-lg font-semibold text-white mb-4">Key Achievements</h4>
+                      <h4 className="text-lg font-semibold text-foreground mb-4">Key Achievements</h4>
                       <ul className="space-y-2">
                         {currentItem.achievements.map((achievement, idx) => (
                           <motion.li
                             key={idx}
-                            className="flex items-start space-x-3 text-gray-300"
+                            className="flex items-start space-x-3 text-muted-strong"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, delay: idx * 0.1 }}

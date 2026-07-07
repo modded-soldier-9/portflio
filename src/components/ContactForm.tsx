@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle, Phone, MessageCircle } from 'lucide-react';
+import { Mail, MessageSquare, Send, CheckCircle, AlertCircle, Phone, MessageCircle } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
 interface FormData {
   name: string;
@@ -11,398 +12,251 @@ interface FormData {
   message: string;
 }
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-}
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
+const inputBase =
+  'w-full px-4 py-3 rounded-lg bg-background border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors duration-200';
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  
+  const [formData, setFormData] = useState<FormData>({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [contactMethod, setContactMethod] = useState<'whatsapp' | 'email'>('whatsapp');
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+    const next: FormErrors = {};
+    if (!formData.name.trim()) next.name = 'Name is required';
+    else if (formData.name.trim().length < 2) next.name = 'Name must be at least 2 characters';
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
-    }
+    if (!formData.email.trim()) next.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) next.email = 'Please enter a valid email address';
 
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
+    if (!formData.subject.trim()) next.subject = 'Subject is required';
+    else if (formData.subject.trim().length < 5) next.subject = 'Subject must be at least 5 characters';
 
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    } else if (formData.subject.trim().length < 5) {
-      newErrors.subject = 'Subject must be at least 5 characters';
-    }
+    if (!formData.message.trim()) next.message = 'Message is required';
+    else if (formData.message.trim().length < 10) next.message = 'Message must be at least 10 characters';
 
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors(next);
+    return Object.keys(next).length === 0;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
-    if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormErrors]) setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!validateForm()) return;
-
     setIsSubmitting(true);
-    
+
     try {
       if (contactMethod === 'whatsapp') {
-        // Format message for WhatsApp
-        const whatsappMessage = `Hi Mohamed! I'm ${formData.name} and I'd like to discuss: ${formData.subject}
-
-My email: ${formData.email}
-
-Message: ${formData.message}
-
-Looking forward to hearing from you!`;
-        
-        // Create WhatsApp URL
-        const whatsappNumber = '0665623383';
-        const encodedMessage = encodeURIComponent(whatsappMessage);
-        const whatsappUrl = `https://wa.me/27${whatsappNumber.replace(/^0/, '')}?text=${encodedMessage}`;
-        
-        // Open WhatsApp
-        window.open(whatsappUrl, '_blank');
-        
-        // Simulate delay for UX
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const text = `Hi ${siteConfig.name.split(' ')[0]}! I'm ${formData.name} and I'd like to discuss: ${formData.subject}\n\nMy email: ${formData.email}\n\nMessage: ${formData.message}`;
+        const url = `https://wa.me/${siteConfig.contact.whatsappCountryCode}${siteConfig.contact.whatsapp}?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+        await new Promise((r) => setTimeout(r, 800));
       } else {
-        // Email functionality (if needed in future)
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        console.log('Email form submitted:', formData);
+        const url = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`${formData.message}\n\n— ${formData.name} (${formData.email})`)}`;
+        window.location.href = url;
+        await new Promise((r) => setTimeout(r, 500));
       }
-      
       setIsSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } catch {
+      setErrors({ message: 'Something went wrong. Please try again or email me directly.' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   if (isSubmitted) {
     return (
       <motion.div
-        className="text-center py-12"
-        initial={{ opacity: 0, scale: 0.9 }}
+        className="max-w-2xl mx-auto text-center py-12"
+        initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4 }}
+        role="status"
+        aria-live="polite"
       >
-        <motion.div
-          className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6"
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 0.6, repeat: 2 }}
-        >
+        <div className="w-16 h-16 rounded-full bg-primary/10 grid place-items-center mx-auto mb-6">
           {contactMethod === 'whatsapp' ? (
-            <MessageCircle className="w-10 h-10 text-green-500" />
+            <MessageCircle className="w-8 h-8 text-primary" aria-hidden="true" />
           ) : (
-            <CheckCircle className="w-10 h-10 text-green-500" />
+            <CheckCircle className="w-8 h-8 text-primary" aria-hidden="true" />
           )}
-        </motion.div>
-        <h3 className="text-2xl font-bold text-white mb-2">
-          {contactMethod === 'whatsapp' ? 'WhatsApp Opened!' : 'Message Sent!'}
+        </div>
+        <h3 className="text-2xl font-bold text-foreground mb-2">
+          {contactMethod === 'whatsapp' ? 'WhatsApp Opened' : 'Email Draft Ready'}
         </h3>
-        <p className="text-gray-400 mb-6">
-          {contactMethod === 'whatsapp' 
-            ? 'WhatsApp should have opened with your message. If not, please try again or contact me directly at +27 66 562 3383'
-            : 'Thank you for your message. I\'ll get back to you as soon as possible.'
-          }
+        <p className="text-muted mb-6">
+          {contactMethod === 'whatsapp'
+            ? `If it didn't open, reach me directly at ${siteConfig.contact.phoneDisplay}.`
+            : `If your mail client didn't open, email me at ${siteConfig.contact.email}.`}
         </p>
-        <motion.button
-          onClick={() => setIsSubmitted(false)}
-          className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
+        <button type="button" onClick={() => setIsSubmitted(false)} className="btn-secondary">
           Send Another Message
-        </motion.button>
+        </button>
       </motion.div>
     );
   }
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      className="max-w-2xl mx-auto"
-    >
-      <motion.h2 
-        className="text-3xl font-bold text-center mb-8 gradient-text"
-        variants={itemVariants}
-      >
-        Get In Touch
-      </motion.h2>
-      
-      <motion.p 
-        className="text-center text-gray-400 mb-8"
-        variants={itemVariants}
-      >
-        Have a project in mind or want to discuss cybersecurity opportunities? 
-        I&apos;d love to hear from you!
-      </motion.p>
+    <div className="max-w-2xl mx-auto">
+      <div className="text-center mb-10">
+        <span className="eyebrow justify-center">Contact</span>
+        <h2 className="section-heading mt-4">Let&rsquo;s Work Together</h2>
+        <p className="section-subtitle mt-4 max-w-xl mx-auto">
+          Have a project in mind or want to discuss a cybersecurity opportunity? Send a message and
+          I&rsquo;ll get back to you.
+        </p>
+      </div>
 
-      {/* Contact Method Selector */}
-      <motion.div
-        className="flex justify-center mb-8"
-        variants={itemVariants}
-      >
-        <div className="flex bg-gray-800/50 rounded-lg p-1">
-          <motion.button
-            onClick={() => setContactMethod('whatsapp')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-              contactMethod === 'whatsapp'
-                ? 'bg-green-500 text-white'
-                : 'text-gray-400 hover:text-white'
+      {/* Contact method toggle */}
+      <div className="flex justify-center mb-8" role="tablist" aria-label="Preferred contact method">
+        {(['whatsapp', 'email'] as const).map((method) => (
+          <button
+            key={method}
+            type="button"
+            role="tab"
+            aria-selected={contactMethod === method}
+            onClick={() => setContactMethod(method)}
+            className={`flex items-center gap-2 px-5 py-2 text-sm font-medium transition-colors first:rounded-l-lg last:rounded-r-lg border border-border ${
+              contactMethod === method ? 'bg-primary text-[#05140d]' : 'bg-card text-muted hover:text-foreground'
             }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
-            <MessageCircle className="w-4 h-4" />
-            <span>WhatsApp</span>
-          </motion.button>
-          <motion.button
-            onClick={() => setContactMethod('email')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-              contactMethod === 'email'
-                ? 'bg-indigo-500 text-white'
-                : 'text-gray-400 hover:text-white'
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Mail className="w-4 h-4" />
-            <span>Email</span>
-          </motion.button>
-        </div>
-      </motion.div>
+            {method === 'whatsapp' ? <MessageCircle className="w-4 h-4" aria-hidden="true" /> : <Mail className="w-4 h-4" aria-hidden="true" />}
+            {method === 'whatsapp' ? 'WhatsApp' : 'Email'}
+          </button>
+        ))}
+      </div>
 
-      {/* Contact Info */}
-      <motion.div
-        className="text-center mb-8 p-4 bg-gray-800/30 rounded-lg border border-gray-700/50"
-        variants={itemVariants}
-      >
-        <div className="flex items-center justify-center space-x-6 text-sm text-gray-400">
-          <div className="flex items-center space-x-2">
-            <Phone className="w-4 h-4 text-green-400" />
-            <span>+27 66 562 3383</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Mail className="w-4 h-4 text-indigo-400" />
-            <span>contact@mohamedelsheikh.dev</span>
-          </div>
-        </div>
-      </motion.div>
+      {/* Direct contact info */}
+      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-8 text-sm text-muted">
+        <a href={`tel:+${siteConfig.contact.whatsappCountryCode}${siteConfig.contact.whatsapp}`} className="inline-flex items-center gap-2 hover:text-primary transition-colors">
+          <Phone className="w-4 h-4 text-primary" aria-hidden="true" />
+          {siteConfig.contact.phoneDisplay}
+        </a>
+        <a href={`mailto:${siteConfig.contact.email}`} className="inline-flex items-center gap-2 hover:text-primary transition-colors">
+          <Mail className="w-4 h-4 text-primary" aria-hidden="true" />
+          {siteConfig.contact.email}
+        </a>
+      </div>
 
-      <motion.form
-        onSubmit={handleSubmit}
-        className="space-y-6"
-        variants={itemVariants}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-              <User className="w-4 h-4 inline mr-2" />
-              Name
-            </label>
+            <label htmlFor="name" className="block text-sm font-medium text-muted-strong mb-2">Name</label>
             <input
               type="text"
               id="name"
               name="name"
+              autoComplete="name"
               value={formData.name}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 rounded-lg bg-gray-800/50 border backdrop-blur-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
-                errors.name 
-                  ? 'border-red-500 focus:ring-red-500/50' 
-                  : 'border-gray-600 focus:ring-indigo-500/50 focus:border-indigo-500'
-              }`}
-              placeholder="Your full name"
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? 'name-error' : undefined}
+              className={`${inputBase} ${errors.name ? 'border-red-500' : 'border-border'}`}
+              placeholder="Your full name…"
             />
             {errors.name && (
-              <motion.p 
-                className="mt-2 text-sm text-red-400 flex items-center"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <AlertCircle className="w-4 h-4 mr-1" />
+              <p id="name-error" className="mt-2 text-sm text-red-400 flex items-center gap-1" aria-live="polite">
+                <AlertCircle className="w-4 h-4" aria-hidden="true" />
                 {errors.name}
-              </motion.p>
+              </p>
             )}
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-              <Mail className="w-4 h-4 inline mr-2" />
-              Email
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium text-muted-strong mb-2">Email</label>
             <input
               type="email"
               id="email"
               name="email"
+              autoComplete="email"
+              inputMode="email"
+              spellCheck={false}
               value={formData.email}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 rounded-lg bg-gray-800/50 border backdrop-blur-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
-                errors.email 
-                  ? 'border-red-500 focus:ring-red-500/50' 
-                  : 'border-gray-600 focus:ring-indigo-500/50 focus:border-indigo-500'
-              }`}
-              placeholder="your.email@example.com"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? 'email-error' : undefined}
+              className={`${inputBase} ${errors.email ? 'border-red-500' : 'border-border'}`}
+              placeholder="you@example.com"
             />
             {errors.email && (
-              <motion.p 
-                className="mt-2 text-sm text-red-400 flex items-center"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <AlertCircle className="w-4 h-4 mr-1" />
+              <p id="email-error" className="mt-2 text-sm text-red-400 flex items-center gap-1" aria-live="polite">
+                <AlertCircle className="w-4 h-4" aria-hidden="true" />
                 {errors.email}
-              </motion.p>
+              </p>
             )}
           </div>
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-            Subject
-          </label>
+          <label htmlFor="subject" className="block text-sm font-medium text-muted-strong mb-2">Subject</label>
           <input
             type="text"
             id="subject"
             name="subject"
+            autoComplete="off"
             value={formData.subject}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 rounded-lg bg-gray-800/50 border backdrop-blur-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
-              errors.subject 
-                ? 'border-red-500 focus:ring-red-500/50' 
-                : 'border-gray-600 focus:ring-indigo-500/50 focus:border-indigo-500'
-            }`}
-            placeholder="What's this about?"
+            aria-invalid={!!errors.subject}
+            aria-describedby={errors.subject ? 'subject-error' : undefined}
+            className={`${inputBase} ${errors.subject ? 'border-red-500' : 'border-border'}`}
+            placeholder="e.g. Security assessment enquiry…"
           />
           {errors.subject && (
-            <motion.p 
-              className="mt-2 text-sm text-red-400 flex items-center"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <AlertCircle className="w-4 h-4 mr-1" />
+            <p id="subject-error" className="mt-2 text-sm text-red-400 flex items-center gap-1" aria-live="polite">
+              <AlertCircle className="w-4 h-4" aria-hidden="true" />
               {errors.subject}
-            </motion.p>
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-            <MessageSquare className="w-4 h-4 inline mr-2" />
+          <label htmlFor="message" className="block text-sm font-medium text-muted-strong mb-2">
+            <MessageSquare className="w-4 h-4 inline mr-1.5" aria-hidden="true" />
             Message
           </label>
           <textarea
             id="message"
             name="message"
+            rows={6}
             value={formData.message}
             onChange={handleInputChange}
-            rows={6}
-            className={`w-full px-4 py-3 rounded-lg bg-gray-800/50 border backdrop-blur-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 resize-none ${
-              errors.message 
-                ? 'border-red-500 focus:ring-red-500/50' 
-                : 'border-gray-600 focus:ring-indigo-500/50 focus:border-indigo-500'
-            }`}
-            placeholder="Tell me about your project or how I can help..."
+            aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? 'message-error' : undefined}
+            className={`${inputBase} resize-none ${errors.message ? 'border-red-500' : 'border-border'}`}
+            placeholder="Tell me about your project or how I can help…"
           />
           {errors.message && (
-            <motion.p 
-              className="mt-2 text-sm text-red-400 flex items-center"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <AlertCircle className="w-4 h-4 mr-1" />
+            <p id="message-error" className="mt-2 text-sm text-red-400 flex items-center gap-1" aria-live="polite">
+              <AlertCircle className="w-4 h-4" aria-hidden="true" />
               {errors.message}
-            </motion.p>
+            </p>
           )}
         </div>
 
-        <motion.button
-          type="submit"
-          disabled={isSubmitting}
-          className={`w-full py-4 px-6 rounded-lg font-semibold text-white transition-all duration-300 flex items-center justify-center space-x-2 ${
-            isSubmitting
-              ? 'bg-gray-600 cursor-not-allowed'
-              : contactMethod === 'whatsapp'
-                ? 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:scale-105'
-                : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 hover:scale-105'
-          }`}
-          whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-          whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-        >
+        <button type="submit" disabled={isSubmitting} className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed">
           {isSubmitting ? (
             <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>{contactMethod === 'whatsapp' ? 'Opening WhatsApp...' : 'Sending...'}</span>
+              <span className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+              {contactMethod === 'whatsapp' ? 'Opening WhatsApp…' : 'Opening Email…'}
             </>
           ) : (
             <>
-              {contactMethod === 'whatsapp' ? (
-                <MessageCircle className="w-5 h-5" />
-              ) : (
-                <Send className="w-5 h-5" />
-              )}
-              <span>{contactMethod === 'whatsapp' ? 'Open WhatsApp' : 'Send Message'}</span>
+              {contactMethod === 'whatsapp' ? <MessageCircle className="w-5 h-5" aria-hidden="true" /> : <Send className="w-5 h-5" aria-hidden="true" />}
+              {contactMethod === 'whatsapp' ? 'Send via WhatsApp' : 'Send via Email'}
             </>
           )}
-        </motion.button>
-      </motion.form>
-    </motion.div>
+        </button>
+      </form>
+    </div>
   );
 };
 

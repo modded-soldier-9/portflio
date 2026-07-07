@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface TypingAnimationProps {
-  texts: string[];
+  texts: readonly string[];
   speed?: number;
   deleteSpeed?: number;
   pauseTime?: number;
@@ -22,9 +22,10 @@ const TypingAnimation = ({
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || reduceMotion) return;
 
     const timeout = setTimeout(() => {
       const fullText = texts[currentTextIndex];
@@ -52,7 +53,11 @@ const TypingAnimation = ({
     }, isDeleting ? deleteSpeed : speed);
 
     return () => clearTimeout(timeout);
-  }, [currentText, isDeleting, isPaused, currentTextIndex, texts, speed, deleteSpeed, pauseTime]);
+  }, [currentText, isDeleting, isPaused, currentTextIndex, texts, speed, deleteSpeed, pauseTime, reduceMotion]);
+
+  if (reduceMotion) {
+    return <span className={`inline-block ${className}`}>{texts[0]}</span>;
+  }
 
   return (
     <motion.span
