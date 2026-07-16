@@ -19,31 +19,41 @@ export default function Home() {
       <Navigation />
       <main id="main" className="sheet">
         <div className="sheet-inner">
+          {/* Paper realism layers */}
+          <div className="paper-texture" aria-hidden="true" />
+          <div className="paper-grain" aria-hidden="true" />
+          <div className="paper-aging" aria-hidden="true" />
+          <div className="paper-lines" aria-hidden="true" />
+          <div className="paper-crease" aria-hidden="true" />
+
           {/* Hole punches */}
           <div className="sheet-punch" aria-hidden="true">
             <span /><span /><span />
           </div>
-          {/* Last updated — fits inside padding */}
-          <div className="font-mono text-[10px] text-[var(--color-ink-faint)] tracking-wide text-right mb-6">
-            Last updated: {LAST_UPDATED}
-          </div>
 
-          <Hero />
-          <hr className="divider" />
-          <Experience />
-          <hr className="divider" />
-          <Projects />
-          <hr className="divider" />
-          <div className="grid md:grid-cols-2 gap-8">
-            <Skills />
-            <Education />
+          {/* Actual content */}
+          <div className="paper-content">
+            <div className="font-mono text-[10px] text-[var(--color-ink-faint)] tracking-wide text-right mb-8">
+              Last updated: {LAST_UPDATED}
+            </div>
+
+            <Hero />
+            <hr className="divider" />
+            <Experience />
+            <hr className="divider" />
+            <Projects />
+            <hr className="divider" />
+            <div className="grid md:grid-cols-2 gap-8">
+              <Skills />
+              <Education />
+            </div>
+            <hr className="divider" />
+            <Certifications />
+            <hr className="divider" />
+            <Mentorship />
+            <hr className="divider" />
+            <ContactForm />
           </div>
-          <hr className="divider" />
-          <Certifications />
-          <hr className="divider" />
-          <Mentorship />
-          <hr className="divider" />
-          <ContactForm />
         </div>
       </main>
       <Footer />
