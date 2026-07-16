@@ -13,27 +13,36 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main id="main" className="pt-20 pb-16 space-y-12">
+      <main id="main" className="pt-20 pb-16">
         <Hero />
-        <div className="container space-y-12">
-          <Paper><Experience /></Paper>
-          <Paper><Projects /></Paper>
-          <Paper><Skills /></Paper>
-          <Paper><Certifications /></Paper>
-          <Paper><Education /></Paper>
-          <Paper><Mentorship /></Paper>
-          <Paper><ContactForm /></Paper>
+        <div className="container space-y-10 mt-12 stack">
+          <section className="paper paper-fold animate-page-in">
+            <Experience />
+          </section>
+          <section className="paper animate-page-in">
+            <Projects />
+          </section>
+          <div className="grid sm:grid-cols-2 gap-6">
+            <section className="paper animate-page-in-right">
+              <Skills />
+            </section>
+            <section className="paper paper-fold animate-page-in-right" style={{ animationDelay: '0.1s' }}>
+              <Education />
+            </section>
+          </div>
+          <section className="paper paper-ruled animate-page-in">
+            <Certifications />
+          </section>
+          <section className="paper animate-page-in">
+            <Mentorship />
+          </section>
+          <section className="paper animate-page-in" style={{ position: 'relative' }}>
+            <div className="tape" aria-hidden="true" />
+            <ContactForm />
+          </section>
         </div>
       </main>
       <Footer />
     </>
-  );
-}
-
-function Paper({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="paper animate-page-in">
-      {children}
-    </div>
   );
 }

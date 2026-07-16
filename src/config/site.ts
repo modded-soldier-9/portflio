@@ -7,7 +7,7 @@ export const siteConfig = {
   location: 'Johannesburg, South Africa',
 
   contact: {
-    email: 'contact@mohamedelsheikh.dev',
+    email: 'mohamedelsheikh4859@gmail.com',
     phoneDisplay: '+27 66 562 3383',
     whatsapp: '665623383',
     whatsappCountryCode: '27',
