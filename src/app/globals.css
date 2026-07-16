@@ -88,7 +88,6 @@ body {
 /* ─── The Sheet ─────────────────────────────────────────────────────────── */
 
 .sheet {
-  max-width: 960px;
   margin: 5rem auto 3rem;
   padding: 0 1rem;
   position: relative;
@@ -108,27 +107,37 @@ body {
     3px 3px 0 0 var(--color-rule),
     6px 6px 0 -1px var(--color-paper-3),
     6px 6px 0 0 var(--color-rule);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent calc(1.7rem - 1px),
-    var(--color-rule) calc(1.7rem - 1px),
-    var(--color-rule) 1.7rem
-  );
-  background-size: 100% 1.7rem;
-  background-position: 0 0.85rem;
   animation: sheet-in var(--dur-slow) var(--ease-out) both;
 }
 
-/* Red margin line */
+/* Ruled lines — BEHIND text via pseudo-element */
 .sheet-inner::before {
   content: '';
   position: absolute;
-  left: 3.75rem;
-  top: 0; bottom: 0;
-  width: 1.5px;
-  background: var(--color-margin);
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    /* Red margin line */
+    linear-gradient(to right, transparent 3.75rem, var(--color-margin) 3.75rem, var(--color-margin) calc(3.75rem + 1.5px), transparent calc(3.75rem + 1.5px)),
+    /* Ruled lines */
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(1.7rem - 1px),
+      var(--color-rule) calc(1.7rem - 1px),
+      var(--color-rule) 1.7rem
+    );
+  background-size: 100% 100%, 100% 1.7rem;
+  background-position: 0 0, 0 0.85rem;
   opacity: 0.6;
+  border-radius: inherit;
+}
+
+/* Content sits above lines */
+.sheet-inner > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Three-hole punch */
@@ -142,6 +151,7 @@ body {
   border-radius: 50%;
   background: var(--color-desk);
   border: 1.5px solid var(--color-hole);
+  z-index: 2;
   box-shadow:
     0 -160px 0 -1.5px var(--color-desk), 0 -160px 0 0 var(--color-hole),
     0 160px 0 -1.5px var(--color-desk), 0 160px 0 0 var(--color-hole);
@@ -204,13 +214,54 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 /* ─── Mobile ────────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
-  .sheet { margin-top: 4rem; padding: 0 0.5rem; }
+  .sheet { margin-top: 4rem; padding: 0 0.25rem; }
   .sheet-inner {
     padding: 2.5rem 1.25rem 2.5rem 2.5rem;
     box-shadow: 0 2px 8px var(--color-shadow);
   }
-  .sheet-inner::before { left: 1.5rem; }
+  .sheet-inner::before { opacity: 0.4; }
   .sheet-inner::after { display: none; }
+}
+
+/* ─── Toolbar dock ──────────────────────────────────────────────────────── */
+
+.toolbar-dock {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  animation: toolbar-glow 2s ease-in-out infinite alternate;
+}
+
+.toolbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 9999px;
+  background: var(--color-paper-2);
+  border: 1.5px solid var(--color-rule);
+  box-shadow:
+    0 4px 16px var(--color-shadow-deep),
+    0 0 0 1px var(--color-rule),
+    0 0 20px oklch(50% 0.15 25 / 0.15);
+}
+
+.toolbar-text-btn {
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-faint);
+  transition: color 0.2s;
+}
+.toolbar-text-btn:hover { color: var(--color-ink); }
+
+@keyframes toolbar-glow {
+  from { filter: drop-shadow(0 0 6px oklch(50% 0.15 25 / 0.2)); }
+  to { filter: drop-shadow(0 0 12px oklch(50% 0.15 25 / 0.4)); }
 }
 
 /* ─── Reduced motion ────────────────────────────────────────────────────── */
