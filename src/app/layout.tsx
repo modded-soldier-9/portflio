@@ -21,7 +21,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: { default: "Mohamed Elsheikh — Head of Cyber Security", template: "%s | Mohamed Elsheikh" },
   description: "Head of Cyber Security at Quota Libex. AWS-certified, Google & Microsoft credentialed. Building secure, scalable systems.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: [{ url: "/favicon.ico" }, { url: "/favicon.svg", type: "image/svg+xml" }] },
   keywords: ["Mohamed Elsheikh", "Cybersecurity", "Head of Cyber Security", "AWS", "Cloud Architecture", "Portfolio"],
   authors: [{ name: "Mohamed Elsheikh", url: siteUrl }],
   metadataBase: new URL(siteUrl),
