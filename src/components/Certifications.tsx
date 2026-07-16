@@ -4,26 +4,26 @@ const Certifications = () => {
   return (
     <section id="certifications">
       <h2 className="font-display mb-6">Certifications</h2>
-      <div className="space-y-6 stagger">
+      <div className="space-y-6">
         {certificationGroups.map((group) => (
           <div key={group.title}>
             <h3 className="font-mono text-xs text-ink-faint uppercase tracking-wide mb-2">
               {group.icon} {group.title}
             </h3>
-            <ul className="space-y-1.5">
+            <ul className="space-y-2">
               {group.certifications.map((cert, i) => (
-                <li key={i} className="flex items-baseline justify-between gap-3">
+                <li key={i} className="group">
                   <a
                     href={cert.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm hover:text-accent transition-colors leading-snug"
+                    className="block sm:flex sm:items-baseline sm:justify-between sm:gap-4 text-sm hover:text-accent transition-colors leading-snug"
                   >
-                    {cert.name}
+                    <span className="group-hover:underline">{cert.name}</span>
+                    <span className="block sm:inline font-mono text-[10px] text-ink-faint whitespace-nowrap mt-0.5 sm:mt-0 shrink-0">
+                      {cert.issued.split(' |')[0]}
+                    </span>
                   </a>
-                  <span className="font-mono text-[10px] text-ink-faint whitespace-nowrap shrink-0">
-                    {cert.issued.split(' |')[0]}
-                  </span>
                 </li>
               ))}
             </ul>

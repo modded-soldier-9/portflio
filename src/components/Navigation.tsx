@@ -22,12 +22,12 @@ const Navigation = () => {
       }`}
       aria-label="Primary"
     >
-      <div className="max-w-[720px] mx-auto px-6 flex h-12 items-center justify-between">
+      <div className="max-w-[820px] mx-auto px-5 flex h-12 items-center justify-between">
         <a href="#home" className="font-mono text-sm text-ink hover:text-accent transition-colors">
           m.elsheikh
         </a>
 
-        <ul className="hidden sm:flex items-center gap-5">
+        <ul className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
             <li key={item.id}>
               <a href={`#${item.id}`} className="text-xs text-ink-muted hover:text-ink transition-colors">
@@ -41,11 +41,11 @@ const Navigation = () => {
           <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
-            className="sm:hidden p-1.5 text-ink-muted hover:text-ink"
+            className="md:hidden p-2 -mr-2 text-ink-muted hover:text-ink"
             aria-label="Menu"
             aria-expanded={open}
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               {open
                 ? <path strokeLinecap="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 : <path strokeLinecap="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -56,14 +56,14 @@ const Navigation = () => {
       </div>
 
       {open && (
-        <div className="sm:hidden border-t border-rule bg-paper/95 backdrop-blur-md">
-          <ul className="max-w-[720px] mx-auto px-6 py-3 space-y-1">
+        <div className="md:hidden border-t border-rule bg-paper/95 backdrop-blur-md">
+          <ul className="max-w-[820px] mx-auto px-5 py-3 space-y-1">
             {navItems.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
                   onClick={() => setOpen(false)}
-                  className="block py-1.5 text-sm text-ink-muted hover:text-ink"
+                  className="block py-2 text-sm text-ink-muted hover:text-ink transition-colors"
                 >
                   {item.name}
                 </a>

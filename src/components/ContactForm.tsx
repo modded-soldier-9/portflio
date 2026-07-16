@@ -15,7 +15,7 @@ const ContactForm = () => {
     );
   };
 
-  const inputClass = "w-full px-3 py-2 text-sm rounded-sm border border-[var(--color-rule)] bg-[var(--color-paper)] text-[var(--color-ink)] placeholder:text-[var(--color-ink-faint)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)]/40 transition-colors";
+  const inputClass = "w-full px-3 py-2.5 text-sm rounded-sm border border-[var(--color-rule)] bg-[var(--color-paper)] text-[var(--color-ink)] placeholder:text-[var(--color-ink-faint)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)]/40 transition-colors";
 
   return (
     <div id="contact">
@@ -25,20 +25,22 @@ const ContactForm = () => {
         {' '}&middot; or drop a message below.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-3 max-w-xs">
-        <div>
-          <label htmlFor="name" className="block font-mono text-[10px] text-[var(--color-ink-faint)] uppercase tracking-wider mb-1">Name</label>
-          <input type="text" id="name" required autoComplete="name" value={form.name} onChange={e => setForm({...form, name: e.target.value})} className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="email" className="block font-mono text-[10px] text-[var(--color-ink-faint)] uppercase tracking-wider mb-1">Email</label>
-          <input type="email" id="email" required autoComplete="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className={inputClass} />
+      <form onSubmit={handleSubmit} className="space-y-3 max-w-md">
+        <div className="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="name" className="block font-mono text-[10px] text-[var(--color-ink-faint)] uppercase tracking-wider mb-1">Name</label>
+            <input type="text" id="name" required autoComplete="name" value={form.name} onChange={e => setForm({...form, name: e.target.value})} className={inputClass} />
+          </div>
+          <div>
+            <label htmlFor="email" className="block font-mono text-[10px] text-[var(--color-ink-faint)] uppercase tracking-wider mb-1">Email</label>
+            <input type="email" id="email" required autoComplete="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className={inputClass} />
+          </div>
         </div>
         <div>
           <label htmlFor="msg" className="block font-mono text-[10px] text-[var(--color-ink-faint)] uppercase tracking-wider mb-1">Message</label>
-          <textarea id="msg" required rows={3} value={form.message} onChange={e => setForm({...form, message: e.target.value})} className={`${inputClass} resize-none`} />
+          <textarea id="msg" required rows={4} value={form.message} onChange={e => setForm({...form, message: e.target.value})} className={`${inputClass} resize-none`} />
         </div>
-        <button type="submit" className="px-4 py-2 text-sm font-medium rounded-sm bg-[var(--color-accent)] text-white hover:opacity-90 transition-opacity">
+        <button type="submit" className="px-5 py-2.5 text-sm font-medium rounded-sm bg-[var(--color-accent)] text-white hover:opacity-90 transition-opacity">
           Send via WhatsApp
         </button>
       </form>

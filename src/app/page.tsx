@@ -19,8 +19,8 @@ export default function Home() {
       <Navigation />
       <main id="main" className="sheet">
         <div className="sheet-inner">
-          {/* Last updated stamp — top right corner like a date on a document */}
-          <div className="absolute top-4 right-6 font-mono text-[10px] text-[var(--color-ink-faint)] tracking-wide">
+          {/* Last updated — fits inside padding */}
+          <div className="font-mono text-[10px] text-[var(--color-ink-faint)] tracking-wide text-right mb-6">
             Last updated: {LAST_UPDATED}
           </div>
 
