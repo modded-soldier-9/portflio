@@ -4,7 +4,7 @@ const Experience = () => {
   return (
     <section id="experience">
       <h2 className="font-display mb-6">Experience</h2>
-      <div className="space-y-6 stagger">
+      <div className="space-y-6">
         {experiences.map((exp) => (
           <article key={exp.id} className="relative pl-5 border-l border-rule">
             <span className="absolute left-[-3.5px] top-2 w-[6px] h-[6px] rounded-full bg-accent" aria-hidden="true" />
@@ -14,6 +14,13 @@ const Experience = () => {
             </div>
             <p className="text-sm text-accent mb-1.5">{exp.company}</p>
             <p className="text-sm text-ink-muted leading-relaxed">{exp.description}</p>
+            {exp.achievements.length > 0 && (
+              <ul className="mt-2 space-y-0.5">
+                {exp.achievements.map((a) => (
+                  <li key={a} className="text-xs text-ink-muted before:content-['→_'] before:text-accent">{a}</li>
+                ))}
+              </ul>
+            )}
             {exp.skills.length > 0 && (
               <div className="flex flex-wrap gap-1.5 mt-2">
                 {exp.skills.map((s) => (
