@@ -114,7 +114,7 @@ const PenCanvas = () => {
     <>
       <canvas
         ref={canvasRef}
-        className={`absolute top-0 left-0 z-30 ${cursorClass}`}
+        className={`absolute top-0 left-0 z-40 ${cursorClass}`}
         style={{
           pointerEvents: tool !== 'none' ? 'auto' : 'none',
           touchAction: 'none',
