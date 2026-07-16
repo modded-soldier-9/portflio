@@ -6,69 +6,64 @@ import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const fn = () => setScrolled(window.scrollY > 16);
+    fn();
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
   }, []);
 
   return (
     <nav
-      className={`fixed top-0 inset-x-0 z-50 transition-[background,border] duration-300 ${
-        scrolled ? 'bg-bg/80 backdrop-blur-md border-b border-border' : ''
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-paper/90 backdrop-blur-md border-b border-rule shadow-sm' : ''
       }`}
       aria-label="Primary"
     >
-      <div className="container flex h-14 items-center justify-between">
-        <a href="#home" className="font-mono text-sm font-semibold text-fg hover:text-accent transition-colors">
-          ME<span className="text-accent">.</span>
+      <div className="max-w-[720px] mx-auto px-6 flex h-12 items-center justify-between">
+        <a href="#home" className="font-mono text-sm text-ink hover:text-accent transition-colors">
+          m.elsheikh
         </a>
 
-        <ul className="hidden md:flex items-center gap-6">
+        <ul className="hidden sm:flex items-center gap-5">
           {navItems.map((item) => (
             <li key={item.id}>
-              <a
-                href={`#${item.id}`}
-                className="text-sm text-fg-muted hover:text-fg transition-colors"
-              >
+              <a href={`#${item.id}`} className="text-xs text-ink-muted hover:text-ink transition-colors">
                 {item.name}
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <ThemeToggle />
           <button
-            type="button"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-fg-muted hover:text-fg"
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
+            onClick={() => setOpen(!open)}
+            className="sm:hidden p-1.5 text-ink-muted hover:text-ink"
+            aria-label="Menu"
+            aria-expanded={open}
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              {open
+                ? <path strokeLinecap="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                : <path strokeLinecap="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              }
             </svg>
           </button>
         </div>
       </div>
 
-      {mobileOpen && (
-        <div className="md:hidden border-t border-border bg-bg/95 backdrop-blur-md">
-          <ul className="container py-4 space-y-1">
+      {open && (
+        <div className="sm:hidden border-t border-rule bg-paper/95 backdrop-blur-md">
+          <ul className="max-w-[720px] mx-auto px-6 py-3 space-y-1">
             {navItems.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  onClick={() => setMobileOpen(false)}
-                  className="block py-2 text-sm text-fg-muted hover:text-fg transition-colors"
+                  onClick={() => setOpen(false)}
+                  className="block py-1.5 text-sm text-ink-muted hover:text-ink"
                 >
                   {item.name}
                 </a>

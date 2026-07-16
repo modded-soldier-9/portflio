@@ -1,75 +1,174 @@
+/* Hallmark · macrostructure: Long Document · tone: calm editorial · anchor hue: warm-sepia */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design Tokens ─────────────────────────────────────────────────────── */
+/* ─── Tokens ────────────────────────────────────────────────────────────── */
 
 :root,
-.dark {
-  color-scheme: dark;
-  --bg: #0a0f14;
-  --bg-raised: #111820;
-  --fg: #e4ebf2;
-  --fg-muted: #8899a8;
-  --fg-faint: #5d6e7d;
-  --border: #1c2630;
-  --accent: #34d399;
-  --accent-dim: rgba(52, 211, 153, 0.12);
-  --ring: #34d399;
-}
-
 .light {
   color-scheme: light;
-  --bg: #fafbfc;
-  --bg-raised: #ffffff;
-  --fg: #0f1419;
-  --fg-muted: #57606a;
-  --fg-faint: #8b949e;
-  --border: #d8dee4;
-  --accent: #059669;
-  --accent-dim: rgba(5, 150, 105, 0.08);
-  --ring: #059669;
+  --color-paper: oklch(97% 0.005 80);      /* warm cream */
+  --color-paper-2: oklch(95% 0.008 75);    /* slightly deeper stock */
+  --color-paper-3: oklch(92% 0.01 70);     /* card/raised */
+  --color-ink: oklch(20% 0.01 60);         /* warm near-black */
+  --color-ink-muted: oklch(45% 0.01 60);
+  --color-ink-faint: oklch(62% 0.008 60);
+  --color-rule: oklch(85% 0.008 70);       /* ruled lines */
+  --color-accent: oklch(45% 0.12 25);      /* warm terracotta/rust */
+  --color-accent-dim: oklch(45% 0.12 25 / 0.08);
+  --color-shadow: oklch(20% 0.01 60 / 0.06);
+  --color-focus: oklch(55% 0.15 250);
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --space-xs: 4px; --space-sm: 8px; --space-md: 16px; --space-lg: 32px; --space-xl: 64px;
+  --radius-page: 3px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-normal: 0.4s;
+  --dur-slow: 0.7s;
 }
 
-/* ─── Reset & Base ──────────────────────────────────────────────────────── */
+.dark {
+  color-scheme: dark;
+  --color-paper: oklch(15% 0.008 60);
+  --color-paper-2: oklch(18% 0.008 60);
+  --color-paper-3: oklch(22% 0.01 60);
+  --color-ink: oklch(90% 0.005 80);
+  --color-ink-muted: oklch(65% 0.005 70);
+  --color-ink-faint: oklch(45% 0.005 60);
+  --color-rule: oklch(25% 0.008 60);
+  --color-accent: oklch(70% 0.14 25);
+  --color-accent-dim: oklch(70% 0.14 25 / 0.1);
+  --color-shadow: oklch(5% 0 0 / 0.3);
+  --color-focus: oklch(70% 0.15 250);
+}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
 
-html { scroll-behavior: smooth; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-inter), system-ui, sans-serif;
-  line-height: 1.6;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  /* Subtle paper texture */
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
 }
 
-/* Anchor offset for fixed nav */
 [id] { scroll-margin-top: 5rem; }
 
-/* Focus */
 :focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
-/* Skip link */
 .skip-link {
   position: fixed; top: 0; left: 50%; transform: translate(-50%, -100%);
   z-index: 100; padding: 0.5rem 1rem;
-  background: var(--accent); color: #000; font-weight: 600;
-  border-radius: 0 0 0.5rem 0.5rem;
-  transition: transform 0.2s;
+  background: var(--color-accent); color: var(--color-paper); font-weight: 600;
+  border-radius: 0 0 4px 4px; transition: transform 0.2s;
 }
 .skip-link:focus { transform: translate(-50%, 0); }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+/* ─── Paper page component ──────────────────────────────────────────────── */
 
-/* ─── Motion ────────────────────────────────────────────────────────────── */
+.paper {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-page);
+  box-shadow: 0 1px 3px var(--color-shadow), 0 8px 24px var(--color-shadow);
+  padding: var(--space-lg) var(--space-lg);
+  position: relative;
+}
+
+.paper::before {
+  content: '';
+  position: absolute;
+  left: 2.5rem;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--color-accent-dim);
+  opacity: 0.5;
+}
+
+/* Ruled lines background for the paper */
+.paper-ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(1.7em - 1px),
+    var(--color-rule) calc(1.7em - 1px),
+    var(--color-rule) 1.7em
+  );
+  background-size: 100% 1.7em;
+  background-position: 0 0.85em;
+}
+
+/* ─── Typography ────────────────────────────────────────────────────────── */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-ink);
+  font-style: normal;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); letter-spacing: -0.01em; }
+h3 { font-size: 1.125rem; }
+
+/* ─── Animations ────────────────────────────────────────────────────────── */
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(20px) rotate(-0.5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-page-in {
+  animation: page-in var(--dur-slow) var(--ease-out) both;
+}
+
+.animate-fade-up {
+  animation: fade-up var(--dur-normal) var(--ease-out) both;
+}
+
+/* Stagger children */
+.stagger > * { animation: fade-up var(--dur-normal) var(--ease-out) both; }
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger > *:nth-child(8) { animation-delay: 0.4s; }
+
+/* ─── Utilities ─────────────────────────────────────────────────────────── */
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: var(--color-rule);
+  margin: var(--space-lg) 0;
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

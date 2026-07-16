@@ -1,29 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
-        bg: 'var(--bg)',
-        'bg-raised': 'var(--bg-raised)',
-        fg: 'var(--fg)',
-        'fg-muted': 'var(--fg-muted)',
-        'fg-faint': 'var(--fg-faint)',
-        border: 'var(--border)',
-        accent: 'var(--accent)',
-        'accent-dim': 'var(--accent-dim)',
+        paper: 'var(--color-paper)',
+        'paper-2': 'var(--color-paper-2)',
+        'paper-3': 'var(--color-paper-3)',
+        ink: 'var(--color-ink)',
+        'ink-muted': 'var(--color-ink-muted)',
+        'ink-faint': 'var(--color-ink-faint)',
+        rule: 'var(--color-rule)',
+        accent: 'var(--color-accent)',
+        'accent-dim': 'var(--color-accent-dim)',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
-      },
-      container: {
-        center: true,
-        padding: '1.5rem',
-        screens: { xl: '1120px' },
+        display: ['var(--font-display)'],
+        body: ['var(--font-body)'],
+        mono: ['var(--font-mono)'],
       },
     },
   },

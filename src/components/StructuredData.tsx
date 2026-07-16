@@ -12,7 +12,7 @@ const StructuredData = () => {
     '@type': 'Person',
     name: siteConfig.name,
     jobTitle: siteConfig.role,
-    description: `${siteConfig.role} at ${siteConfig.company} | AWS Academy Graduate | Cybersecurity Expert | IT Management Leader`,
+    description: `${siteConfig.role} | AWS Academy Graduate | Cybersecurity Expert | Full-Stack Developer`,
     url,
     image: `${url}/personal.jpg`,
     sameAs: [siteConfig.github.url, siteConfig.linkedin],
@@ -23,9 +23,12 @@ const StructuredData = () => {
     },
     worksFor: {
       '@type': 'Organization',
-      name: siteConfig.company,
+      name: 'Self-employed',
     },
-    alumniOf: [{ '@type': 'EducationalOrganization', name: 'AWS Academy' }],
+    alumniOf: [
+      { '@type': 'EducationalOrganization', name: 'Richfield Graduate Institute of Technology' },
+      { '@type': 'EducationalOrganization', name: 'AWS Academy' },
+    ],
     knowsAbout: [
       'Cybersecurity',
       'Cloud Computing',
@@ -71,9 +74,8 @@ const StructuredData = () => {
     hasOccupation: [
       {
         '@type': 'Occupation',
-        name: 'Head of Cyber Security',
+        name: 'Independent Security Researcher',
         occupationLocation: { '@type': 'City', name: 'Johannesburg' },
-        hiringOrganization: { '@type': 'Organization', name: 'Quota Libex' },
       },
       {
         '@type': 'Occupation',

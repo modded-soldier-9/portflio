@@ -4,47 +4,45 @@ import SocialLinks from './SocialLinks';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative min-h-[90vh] flex items-center pt-20 pb-16">
-      <div className="container">
-        <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center">
-          <div className="space-y-6">
-            <p className="font-mono text-sm text-accent tracking-wide">
-              {siteConfig.role} @ {siteConfig.company}
+    <section id="home" className="container">
+      <div className="paper paper-ruled animate-page-in py-12 px-8 sm:px-12">
+        <div className="grid sm:grid-cols-[1fr_auto] gap-8 items-start">
+          <div className="stagger space-y-5">
+            <p className="font-mono text-xs text-accent tracking-wide uppercase">
+              {siteConfig.role}
             </p>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-              {siteConfig.name}
-            </h1>
+            <h1 className="font-display">{siteConfig.name}</h1>
 
-            <p className="text-lg text-fg-muted max-w-lg leading-relaxed">
+            <p className="text-ink-muted leading-relaxed max-w-md">
               {siteConfig.tagline}
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap gap-3 pt-1">
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-[#05140d] text-sm font-semibold hover:opacity-90 transition-opacity"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium rounded bg-accent text-paper transition-opacity hover:opacity-80"
               >
-                Get in Touch
+                Get in touch
               </a>
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border text-sm font-medium text-fg hover:border-accent hover:text-accent transition-colors"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium rounded border border-rule text-ink-muted hover:text-ink hover:border-ink-faint transition-colors"
               >
-                View Projects
+                See my work
               </a>
             </div>
 
             <SocialLinks />
           </div>
 
-          <div className="hidden lg:block">
-            <div className="w-72 h-72 rounded-2xl overflow-hidden border border-border">
+          <div className="hidden sm:block">
+            <div className="w-36 h-44 rounded-sm overflow-hidden border border-rule shadow-sm rotate-1 hover:rotate-0 transition-transform duration-500">
               <Image
                 src="/personal.jpg"
-                alt={`Portrait of ${siteConfig.name}`}
-                width={288}
-                height={288}
+                alt={siteConfig.name}
+                width={144}
+                height={176}
                 className="w-full h-full object-cover"
                 priority
               />

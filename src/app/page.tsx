@@ -13,17 +13,27 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main id="main">
+      <main id="main" className="pt-20 pb-16 space-y-12">
         <Hero />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Certifications />
-        <Education />
-        <Mentorship />
-        <ContactForm />
+        <div className="container space-y-12">
+          <Paper><Experience /></Paper>
+          <Paper><Projects /></Paper>
+          <Paper><Skills /></Paper>
+          <Paper><Certifications /></Paper>
+          <Paper><Education /></Paper>
+          <Paper><Mentorship /></Paper>
+          <Paper><ContactForm /></Paper>
+        </div>
       </main>
       <Footer />
     </>
+  );
+}
+
+function Paper({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="paper animate-page-in">
+      {children}
+    </div>
   );
 }
