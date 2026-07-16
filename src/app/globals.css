@@ -1,61 +1,58 @@
-/* Hallmark · macrostructure: Long Document · tone: calm editorial · paper-sheet */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Tokens ────────────────────────────────────────────────────────────── */
+/* ─── Tokens: strict black & white ─────────────────────────────────────── */
 
 :root,
 .light {
   color-scheme: light;
-  --color-paper: oklch(95.5% 0.006 75);
-  --color-paper-2: oklch(97.5% 0.004 80);
-  --color-paper-3: oklch(93% 0.008 72);
-  --color-desk: oklch(88% 0.015 55);
-  --color-ink: oklch(18% 0.012 55);
-  --color-ink-muted: oklch(38% 0.01 55);
-  --color-ink-faint: oklch(55% 0.008 60);
-  --color-rule: oklch(87% 0.005 70);
-  --color-rule-strong: oklch(78% 0.006 70);
-  --color-margin: oklch(65% 0.12 15);
-  --color-accent: oklch(45% 0.15 22);
-  --color-accent-dim: oklch(45% 0.15 22 / 0.06);
-  --color-shadow: oklch(18% 0.01 55 / 0.06);
-  --color-shadow-deep: oklch(18% 0.01 55 / 0.12);
-  --color-focus: oklch(55% 0.14 250);
-  --color-hole: oklch(75% 0.01 55);
-  --font-display: 'Caveat', cursive;
+  --color-paper: #fdfdfd;
+  --color-paper-edge: #f3f1ee;
+  --color-desk: #e8e5e0;
+  --color-ink: #111111;
+  --color-ink-muted: #444444;
+  --color-ink-faint: #888888;
+  --color-rule: #d4d4d4;
+  --color-rule-strong: #b0b0b0;
+  --color-margin: #c44040;
+  --color-shadow: rgba(0, 0, 0, 0.06);
+  --color-shadow-deep: rgba(0, 0, 0, 0.14);
+  --color-focus: #c44040;
+  --color-hole: #c8c4be;
+  --color-red: #c44040;
+  --color-red-dim: rgba(196, 64, 64, 0.06);
+  --font-display: 'EB Garamond', Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-normal: 0.5s;
-  --dur-slow: 0.8s;
+  --dur-slow: 0.7s;
 }
 
 .dark {
   color-scheme: dark;
-  --color-paper: oklch(16% 0.006 55);
-  --color-paper-2: oklch(19% 0.005 55);
-  --color-paper-3: oklch(22% 0.008 55);
-  --color-desk: oklch(10% 0.005 50);
-  --color-ink: oklch(92% 0.004 75);
-  --color-ink-muted: oklch(70% 0.004 65);
-  --color-ink-faint: oklch(50% 0.004 55);
-  --color-rule: oklch(25% 0.005 55);
-  --color-rule-strong: oklch(30% 0.005 55);
-  --color-margin: oklch(50% 0.1 15);
-  --color-accent: oklch(72% 0.13 22);
-  --color-accent-dim: oklch(72% 0.13 22 / 0.08);
-  --color-shadow: oklch(5% 0 0 / 0.3);
-  --color-shadow-deep: oklch(5% 0 0 / 0.4);
-  --color-focus: oklch(70% 0.14 250);
-  --color-hole: oklch(30% 0.01 55);
+  --color-paper: #1a1a1a;
+  --color-paper-edge: #222222;
+  --color-desk: #0e0e0e;
+  --color-ink: #eeeeee;
+  --color-ink-muted: #aaaaaa;
+  --color-ink-faint: #666666;
+  --color-rule: #333333;
+  --color-rule-strong: #444444;
+  --color-margin: #cc5555;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+  --color-shadow-deep: rgba(0, 0, 0, 0.6);
+  --color-focus: #cc5555;
+  --color-hole: #333333;
+  --color-red: #cc5555;
+  --color-red-dim: rgba(204, 85, 85, 0.08);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────────────────── */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: 16px; overflow-x: clip; }
+
 body {
   background: var(--color-desk);
   color: var(--color-ink);
@@ -63,7 +60,6 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
-  background-image: repeating-linear-gradient(87deg, transparent, transparent 2px, oklch(50% 0.02 55 / 0.02) 2px, oklch(50% 0.02 55 / 0.02) 3px);
 }
 
 [id] { scroll-margin-top: 4.5rem; }
@@ -72,12 +68,12 @@ body {
 .skip-link {
   position: fixed; top: 0; left: 50%; transform: translate(-50%, -100%);
   z-index: 100; padding: 0.5rem 1rem;
-  background: var(--color-accent); color: white; font-weight: 600;
+  background: var(--color-ink); color: var(--color-paper); font-weight: 600;
   border-radius: 0 0 4px 4px; transition: transform 0.2s;
 }
 .skip-link:focus { transform: translate(-50%, 0); }
 
-/* ─── The Sheet ─────────────────────────────────────────────────────────── */
+/* ─── The Paper Sheet ───────────────────────────────────────────────────── */
 
 .sheet {
   max-width: 820px;
@@ -87,23 +83,26 @@ body {
 }
 
 .sheet-inner {
-  background: var(--color-paper-2);
-  border: 1px solid var(--color-rule);
-  border-radius: 2px;
-  padding: 3.5rem 4rem 4rem 5.5rem;
   position: relative;
+  background: var(--color-paper);
+  border: none;
+  padding: 4rem 4.5rem 4.5rem 5.5rem;
+  /* Realistic multi-layer shadow: lifted paper on desk */
   box-shadow:
-    0 1px 2px var(--color-shadow),
-    0 4px 12px var(--color-shadow),
-    0 16px 48px var(--color-shadow-deep),
-    3px 3px 0 -1px var(--color-paper),
-    3px 3px 0 0 var(--color-rule),
-    6px 6px 0 -1px var(--color-paper-3),
-    6px 6px 0 0 var(--color-rule);
+    /* Contact shadow directly under */
+    0 1px 1px var(--color-shadow),
+    /* Soft ambient */
+    0 4px 8px var(--color-shadow),
+    /* Depth */
+    0 12px 40px var(--color-shadow-deep),
+    /* Slight paper curl at bottom-right */
+    2px 2px 6px -2px var(--color-shadow-deep);
+  /* Paper fiber noise texture */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23f)' opacity='0.025'/%3E%3C/svg%3E");
   animation: sheet-in var(--dur-slow) var(--ease-out) both;
 }
 
-/* Ruled lines — behind text */
+/* Ruled lines — very faint, behind content */
 .sheet-inner::before {
   content: '';
   position: absolute;
@@ -111,54 +110,67 @@ body {
   pointer-events: none;
   z-index: 0;
   background-image:
-    linear-gradient(to right, transparent 3.75rem, var(--color-margin) 3.75rem, var(--color-margin) calc(3.75rem + 1.5px), transparent calc(3.75rem + 1.5px)),
+    /* Red margin line */
+    linear-gradient(to right, transparent 3.75rem, var(--color-margin) 3.75rem, var(--color-margin) calc(3.75rem + 1px), transparent calc(3.75rem + 1px)),
+    /* Horizontal rules */
     repeating-linear-gradient(to bottom, transparent, transparent calc(1.7rem - 1px), var(--color-rule) calc(1.7rem - 1px), var(--color-rule) 1.7rem);
   background-size: 100% 100%, 100% 1.7rem;
-  background-position: 0 0, 0 0.85rem;
-  opacity: 0.3;
-  border-radius: inherit;
+  background-position: 0 0, 0 1rem;
+  opacity: 0.4;
 }
 
-.sheet-inner > * { position: relative; z-index: 1; }
-
-/* Three-hole punch */
+/* Edge aging — subtle darkening at edges like old paper */
 .sheet-inner::after {
   content: '';
   position: absolute;
-  left: 1.25rem;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, var(--color-paper-edge) 100%);
+  opacity: 0.5;
+}
+
+/* Content above decorative layers */
+.sheet-inner > * { position: relative; z-index: 1; }
+
+/* Three-hole punch on left side */
+.sheet-punch {
+  position: absolute;
+  left: 1.1rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 12px; height: 12px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+}
+.sheet-punch span {
+  width: 13px; height: 13px;
   border-radius: 50%;
   background: var(--color-desk);
   border: 1.5px solid var(--color-hole);
-  z-index: 2;
-  box-shadow:
-    0 -200px 0 -1.5px var(--color-desk), 0 -200px 0 0 var(--color-hole),
-    0 200px 0 -1.5px var(--color-desk), 0 200px 0 0 var(--color-hole);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
 @keyframes sheet-in {
-  from { opacity: 0; transform: translateY(24px) rotate(-0.3deg); }
-  to { opacity: 1; transform: translateY(0) rotate(0); }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ─── Typography ────────────────────────────────────────────────────────── */
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 500;
+  line-height: 1.3;
   color: var(--color-ink);
   font-style: normal;
   text-wrap: balance;
-  letter-spacing: 0;
 }
 
-/* Handwritten font reads smaller — bump sizes up */
-h1 { font-size: clamp(2.2rem, 5.5vw, 3.25rem); }
-h2 { font-size: clamp(1.4rem, 2.8vw, 1.75rem); margin-bottom: 0.75rem; }
-h3 { font-size: 1.1rem; font-weight: 500; }
+h1 { font-size: clamp(2rem, 4.5vw, 2.75rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-bottom: 0.75rem; }
+h3 { font-size: 1rem; font-weight: 600; }
 
 p { text-wrap: pretty; max-width: 65ch; }
 
@@ -167,9 +179,9 @@ p { text-wrap: pretty; max-width: 65ch; }
 .divider {
   border: 0;
   height: 0;
-  border-bottom: 1px dashed var(--color-rule-strong);
+  border-bottom: 1px solid var(--color-rule);
   margin: 2.5rem 0;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 /* ─── Animations ────────────────────────────────────────────────────────── */
@@ -179,9 +191,9 @@ p { text-wrap: pretty; max-width: 65ch; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-up { animation: fade-up var(--dur-normal) var(--ease-out) both; }
+.animate-fade-up { animation: fade-up 0.5s var(--ease-out) both; }
 
-.stagger > * { animation: fade-up var(--dur-normal) var(--ease-out) both; }
+.stagger > * { animation: fade-up 0.5s var(--ease-out) both; }
 .stagger > *:nth-child(1) { animation-delay: 0.04s; }
 .stagger > *:nth-child(2) { animation-delay: 0.08s; }
 .stagger > *:nth-child(3) { animation-delay: 0.12s; }
@@ -195,29 +207,31 @@ p { text-wrap: pretty; max-width: 65ch; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-rule); border-radius: 3px; }
 
-/* ─── Desktop wide ──────────────────────────────────────────────────────── */
+/* ─── Desktop ───────────────────────────────────────────────────────────── */
 
 @media (min-width: 1024px) {
   .sheet { max-width: 880px; }
-  .sheet-inner { padding: 4rem 5rem 4.5rem 6rem; }
+  .sheet-inner { padding: 4.5rem 5.5rem 5rem 6.5rem; }
   .sheet-inner::before {
     background-image:
-      linear-gradient(to right, transparent 4.25rem, var(--color-margin) 4.25rem, var(--color-margin) calc(4.25rem + 1.5px), transparent calc(4.25rem + 1.5px)),
+      linear-gradient(to right, transparent 4.5rem, var(--color-margin) 4.5rem, var(--color-margin) calc(4.5rem + 1px), transparent calc(4.5rem + 1px)),
       repeating-linear-gradient(to bottom, transparent, transparent calc(1.7rem - 1px), var(--color-rule) calc(1.7rem - 1px), var(--color-rule) 1.7rem);
   }
+  .sheet-punch { left: 1.5rem; }
 }
 
 /* ─── Tablet ────────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
   .sheet { margin-top: 4rem; padding: 0 0.75rem; }
-  .sheet-inner { padding: 2.5rem 2rem 2.5rem 3rem; }
+  .sheet-inner { padding: 2.5rem 2rem 2.5rem 3.5rem; }
   .sheet-inner::before {
     background-image:
-      linear-gradient(to right, transparent 2rem, var(--color-margin) 2rem, var(--color-margin) calc(2rem + 1px), transparent calc(2rem + 1px)),
+      linear-gradient(to right, transparent 2.25rem, var(--color-margin) 2.25rem, var(--color-margin) calc(2.25rem + 1px), transparent calc(2.25rem + 1px)),
       repeating-linear-gradient(to bottom, transparent, transparent calc(1.7rem - 1px), var(--color-rule) calc(1.7rem - 1px), var(--color-rule) 1.7rem);
   }
-  .sheet-inner::after { left: 0.6rem; }
+  .sheet-punch { left: 0.5rem; gap: 8rem; }
+  .sheet-punch span { width: 10px; height: 10px; }
 }
 
 /* ─── Mobile ────────────────────────────────────────────────────────────── */
@@ -225,19 +239,17 @@ p { text-wrap: pretty; max-width: 65ch; }
 @media (max-width: 640px) {
   .sheet { margin-top: 3.5rem; padding: 0; }
   .sheet-inner {
-    padding: 2rem 1.25rem 2rem 2rem;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    box-shadow: 0 2px 8px var(--color-shadow);
+    padding: 2rem 1.25rem 2rem 2.25rem;
+    box-shadow: 0 2px 12px var(--color-shadow);
   }
   .sheet-inner::before {
-    opacity: 0.18;
+    opacity: 0.25;
     background-image:
       linear-gradient(to right, transparent 1.25rem, var(--color-margin) 1.25rem, var(--color-margin) calc(1.25rem + 1px), transparent calc(1.25rem + 1px)),
       repeating-linear-gradient(to bottom, transparent, transparent calc(1.7rem - 1px), var(--color-rule) calc(1.7rem - 1px), var(--color-rule) 1.7rem);
   }
-  .sheet-inner::after { display: none; }
+  .sheet-inner::after { opacity: 0.3; }
+  .sheet-punch { display: none; }
   .divider { margin: 1.5rem 0; }
 }
 
@@ -259,11 +271,11 @@ p { text-wrap: pretty; max-width: 65ch; }
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 9999px;
-  background: var(--color-paper-2);
-  border: 2px solid var(--color-accent);
-  box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 4px var(--color-accent-dim);
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-rule-strong);
+  box-shadow: 0 4px 20px var(--color-shadow-deep);
   animation: toolbar-pulse 3s ease-in-out infinite;
 }
 
@@ -273,23 +285,22 @@ p { text-wrap: pretty; max-width: 65ch; }
   gap: 4px;
   padding: 0.45rem 0.75rem;
   border-radius: 9999px;
-  color: var(--color-ink-muted);
+  color: var(--color-ink-faint);
   font-size: 11px;
   font-weight: 500;
   transition: all 0.15s ease;
   white-space: nowrap;
 }
-.toolbar-btn:hover { color: var(--color-ink); background: var(--color-paper-3); }
-.toolbar-btn-active { color: var(--color-ink); background: var(--color-paper-3); font-weight: 600; }
-.toolbar-btn-mark.toolbar-btn-active { background: oklch(50% 0.22 25 / 0.12); color: oklch(50% 0.22 25); }
+.toolbar-btn:hover { color: var(--color-ink); background: var(--color-rule); }
+.toolbar-btn-active { color: var(--color-ink); background: var(--color-rule); font-weight: 600; }
+.toolbar-btn-mark.toolbar-btn-active { background: var(--color-red-dim); color: var(--color-red); }
 
 .toolbar-label { font-family: var(--font-mono); letter-spacing: 0.02em; }
-
-.toolbar-sep { width: 1px; height: 1.25rem; background: var(--color-rule); margin: 0 0.15rem; }
+.toolbar-sep { width: 1px; height: 1.25rem; background: var(--color-rule); margin: 0 0.25rem; }
 
 @keyframes toolbar-pulse {
-  0%, 100% { box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 4px var(--color-accent-dim); }
-  50% { box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 6px var(--color-accent-dim), 0 0 20px oklch(50% 0.18 25 / 0.15); }
+  0%, 100% { box-shadow: 0 4px 20px var(--color-shadow-deep); }
+  50% { box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 3px var(--color-red-dim); }
 }
 
 /* ─── Reduced motion ────────────────────────────────────────────────────── */

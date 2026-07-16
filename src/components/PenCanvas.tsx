@@ -41,8 +41,8 @@ const PenCanvas = () => {
     // Mark it
     const id = crypto.randomUUID();
     el.dataset.marked = 'true';
-    el.style.background = 'oklch(50% 0.22 25 / 0.08)';
-    el.style.borderBottom = '2px solid oklch(50% 0.22 25 / 0.7)';
+    el.style.background = 'var(--color-red-dim)';
+    el.style.borderBottom = '2px solid var(--color-red)';
     el.style.borderRadius = '2px';
 
     setMarks(prev => [...prev, { id, element: el }]);
@@ -104,9 +104,10 @@ const PenCanvas = () => {
           main * { cursor: crosshair !important; }
           main p:hover, main h1:hover, main h2:hover, main h3:hover,
           main li:hover, main a:hover, main span:hover, main label:hover {
-            outline: 2px dashed oklch(50% 0.22 25 / 0.4) !important;
+            outline: 2px dashed var(--color-red) !important;
             outline-offset: 2px !important;
             border-radius: 2px !important;
+            opacity: 0.9;
           }
         `}</style>
       )}

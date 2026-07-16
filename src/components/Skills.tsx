@@ -8,13 +8,13 @@ const Skills = () => {
   return (
     <section id="skills">
       <h2 className="font-display mb-6">Skills</h2>
-      <div className="space-y-5 stagger">
+      <div className="space-y-5">
         {groups.map((g) => (
           <div key={g.title}>
-            <h3 className="font-mono text-xs text-accent uppercase tracking-wide mb-2">{g.title}</h3>
+            <h3 className="font-mono text-[11px] text-ink-faint uppercase tracking-wide mb-2">{g.title}</h3>
             <div className="flex flex-wrap gap-1.5">
               {g.skills.map((s) => (
-                <span key={s} className="px-2.5 py-1 text-xs rounded border border-rule text-ink-muted bg-paper-3/40">
+                <span key={s} className="px-2.5 py-1 text-xs rounded border border-rule text-ink-muted">
                   {s}
                 </span>
               ))}

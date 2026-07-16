@@ -19,6 +19,10 @@ export default function Home() {
       <Navigation />
       <main id="main" className="sheet">
         <div className="sheet-inner">
+          {/* Hole punches */}
+          <div className="sheet-punch" aria-hidden="true">
+            <span /><span /><span />
+          </div>
           {/* Last updated — fits inside padding */}
           <div className="font-mono text-[10px] text-[var(--color-ink-faint)] tracking-wide text-right mb-6">
             Last updated: {LAST_UPDATED}

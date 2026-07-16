@@ -30,7 +30,7 @@ const Projects = async () => {
     <section id="projects">
       <div className="flex items-baseline justify-between mb-6">
         <h2 className="font-display">Projects</h2>
-        <a href={siteConfig.github.url} target="_blank" rel="noopener noreferrer" className="text-xs text-ink-faint hover:text-accent transition-colors">
+        <a href={siteConfig.github.url} target="_blank" rel="noopener noreferrer" className="text-xs text-ink-faint hover:text-ink transition-colors">
           All on GitHub &rarr;
         </a>
       </div>
@@ -45,9 +45,9 @@ const Projects = async () => {
               href={repo.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block p-4 rounded border border-rule hover:border-accent/30 transition-colors"
+              className="group block p-4 rounded border border-rule hover:border-ink-faint transition-colors"
             >
-              <h3 className="text-sm font-semibold group-hover:text-accent transition-colors mb-1 truncate">{repo.name}</h3>
+              <h3 className="text-sm font-semibold group-hover:text-ink transition-colors mb-1 truncate">{repo.name}</h3>
               <p className="text-xs text-ink-muted line-clamp-2 min-h-[2rem]">{repo.description || 'No description'}</p>
               <div className="flex items-center gap-2 mt-2 text-[11px] text-ink-faint">
                 {repo.language && <span>{repo.language}</span>}

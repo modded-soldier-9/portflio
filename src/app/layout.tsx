@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Caveat } from "next/font/google";
+import { Inter, JetBrains_Mono, EB_Garamond } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -7,7 +7,7 @@ import StructuredData from "@/components/StructuredData";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
-const caveat = Caveat({ subsets: ["latin"], variable: "--font-display", display: "swap", weight: ["400", "500", "600", "700"] });
+const display = EB_Garamond({ subsets: ["latin"], variable: "--font-display", display: "swap", weight: ["400", "500", "600", "700"] });
 
 const siteUrl = "https://mohamedelsheikh.dev";
 
@@ -42,7 +42,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme')||'syste
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${mono.variable} ${caveat.variable} light`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${mono.variable} ${display.variable} light`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <StructuredData />

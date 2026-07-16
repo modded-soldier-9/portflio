@@ -7,7 +7,7 @@ const Hero = () => {
     <section id="home">
       <div className="grid sm:grid-cols-[1fr_auto] gap-6 items-start">
         <div className="space-y-4">
-          <p className="font-mono text-[11px] text-[var(--color-accent)] tracking-wider uppercase">
+          <p className="font-mono text-[11px] text-[var(--color-ink-faint)] tracking-wider uppercase">
             {siteConfig.role}
           </p>
 
@@ -25,10 +25,10 @@ const Hero = () => {
           </div>
 
           <div className="flex flex-wrap gap-3 pt-1">
-            <a href="#contact" className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-sm bg-[var(--color-accent)] text-white transition-opacity hover:opacity-90">
+            <a href="#contact" className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-sm bg-[var(--color-ink)] text-[var(--color-paper)] transition-opacity hover:opacity-80">
               Get in touch
             </a>
-            <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-sm border border-[var(--color-rule-strong)] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink-faint)] transition-colors">
+            <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-sm border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors">
               LinkedIn
             </a>
           </div>

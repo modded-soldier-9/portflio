@@ -21,7 +21,7 @@ const ContactForm = () => {
     <div id="contact">
       <h2 className="font-display mb-2">Say Hello</h2>
       <p className="text-sm text-[var(--color-ink-muted)] mb-5">
-        <a href={`mailto:${siteConfig.contact.email}`} className="text-[var(--color-accent)] hover:underline">{siteConfig.contact.email}</a>
+        <a href={`mailto:${siteConfig.contact.email}`} className="text-[var(--color-ink)] underline hover:no-underline">{siteConfig.contact.email}</a>
         {' '}&middot; or drop a message below.
       </p>
 
@@ -40,7 +40,7 @@ const ContactForm = () => {
           <label htmlFor="msg" className="block font-mono text-[10px] text-[var(--color-ink-faint)] uppercase tracking-wider mb-1">Message</label>
           <textarea id="msg" required rows={4} value={form.message} onChange={e => setForm({...form, message: e.target.value})} className={`${inputClass} resize-none`} />
         </div>
-        <button type="submit" className="px-5 py-2.5 text-sm font-medium rounded-sm bg-[var(--color-accent)] text-white hover:opacity-90 transition-opacity">
+        <button type="submit" className="px-5 py-2.5 text-sm font-medium rounded-sm bg-[var(--color-ink)] text-[var(--color-paper)] hover:opacity-80 transition-opacity">
           Send via WhatsApp
         </button>
       </form>

@@ -17,7 +17,7 @@ const Certifications = () => {
                     href={cert.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block sm:flex sm:items-baseline sm:justify-between sm:gap-4 text-sm hover:text-accent transition-colors leading-snug"
+                    className="block sm:flex sm:items-baseline sm:justify-between sm:gap-4 text-sm hover:text-ink transition-colors leading-snug"
                   >
                     <span className="group-hover:underline">{cert.name}</span>
                     <span className="block sm:inline font-mono text-[10px] text-ink-faint whitespace-nowrap mt-0.5 sm:mt-0 shrink-0">
