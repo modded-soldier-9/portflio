@@ -8,41 +8,35 @@ import Education from '@/components/Education';
 import Mentorship from '@/components/Mentorship';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
+import PenCanvas from '@/components/PenCanvas';
 
 export default function Home() {
   return (
-    <>
+    <div className="relative">
+      <PenCanvas />
       <Navigation />
-      <main id="main" className="pt-20 pb-16">
-        <Hero />
-        <div className="container space-y-10 mt-12 stack">
-          <section className="paper paper-fold animate-page-in">
-            <Experience />
-          </section>
-          <section className="paper animate-page-in">
-            <Projects />
-          </section>
-          <div className="grid sm:grid-cols-2 gap-6">
-            <section className="paper animate-page-in-right">
-              <Skills />
-            </section>
-            <section className="paper paper-fold animate-page-in-right" style={{ animationDelay: '0.1s' }}>
-              <Education />
-            </section>
+      <main id="main" className="sheet">
+        {/* The whole page is one sheet of paper */}
+        <div className="sheet-inner">
+          <Hero />
+          <hr className="divider" />
+          <Experience />
+          <hr className="divider" />
+          <Projects />
+          <hr className="divider" />
+          <div className="grid sm:grid-cols-2 gap-8">
+            <Skills />
+            <Education />
           </div>
-          <section className="paper paper-ruled animate-page-in">
-            <Certifications />
-          </section>
-          <section className="paper animate-page-in">
-            <Mentorship />
-          </section>
-          <section className="paper animate-page-in" style={{ position: 'relative' }}>
-            <div className="tape" aria-hidden="true" />
-            <ContactForm />
-          </section>
+          <hr className="divider" />
+          <Certifications />
+          <hr className="divider" />
+          <Mentorship />
+          <hr className="divider" />
+          <ContactForm />
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
