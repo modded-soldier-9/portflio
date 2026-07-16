@@ -253,50 +253,45 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .toolbar-inner {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 0.5rem 0.75rem;
+  gap: 4px;
+  padding: 0.4rem 0.6rem;
   border-radius: 9999px;
   background: var(--color-paper-2);
   border: 2px solid var(--color-accent);
   box-shadow:
     0 4px 20px var(--color-shadow-deep),
-    0 0 0 4px var(--color-accent-dim),
-    0 0 24px oklch(50% 0.18 25 / 0.25);
-  animation: toolbar-pulse 2.5s ease-in-out infinite;
+    0 0 0 4px var(--color-accent-dim);
+  animation: toolbar-pulse 3s ease-in-out infinite;
 }
 
 .toolbar-btn {
-  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.4rem 0.7rem;
   border-radius: 9999px;
   color: var(--color-ink-muted);
+  font-size: 11px;
+  font-weight: 500;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 .toolbar-btn:hover { color: var(--color-ink); background: var(--color-paper-3); }
-.toolbar-btn-active { transform: scale(1.15); }
+.toolbar-btn-active { color: var(--color-ink); background: var(--color-paper-3); font-weight: 600; }
+.toolbar-btn-mark.toolbar-btn-active { background: oklch(50% 0.22 25 / 0.12); color: oklch(50% 0.22 25); }
+
+.toolbar-label { font-family: var(--font-mono); letter-spacing: 0.02em; }
 
 .toolbar-sep {
   width: 1px;
   height: 1.25rem;
   background: var(--color-rule);
-  margin: 0 0.25rem;
+  margin: 0 0.15rem;
 }
-
-.toolbar-txt {
-  padding: 0.25rem 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-ink-faint);
-  transition: color 0.2s;
-  white-space: nowrap;
-}
-.toolbar-txt:hover { color: var(--color-ink); }
-.toolbar-txt-active { color: var(--color-accent) !important; font-weight: 600; }
 
 @keyframes toolbar-pulse {
-  0%, 100% { box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 4px var(--color-accent-dim), 0 0 20px oklch(50% 0.18 25 / 0.2); }
-  50% { box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 6px var(--color-accent-dim), 0 0 32px oklch(50% 0.18 25 / 0.35); }
+  0%, 100% { box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 4px var(--color-accent-dim); }
+  50% { box-shadow: 0 4px 20px var(--color-shadow-deep), 0 0 0 6px var(--color-accent-dim), 0 0 24px oklch(50% 0.18 25 / 0.2); }
 }
 
 /* ─── Reduced motion ────────────────────────────────────────────────────── */

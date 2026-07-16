@@ -8,14 +8,14 @@ import Education from '@/components/Education';
 import Mentorship from '@/components/Mentorship';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
-import PenCanvas from '@/components/PenCanvas';
+import Annotator from '@/components/PenCanvas';
 
 const LAST_UPDATED = '16 July 2025';
 
 export default function Home() {
   return (
     <div className="relative min-h-screen">
-      <PenCanvas />
+      <Annotator />
       <Navigation />
       <main id="main" className="sheet">
         <div className="sheet-inner">
