@@ -17,14 +17,18 @@ const PenCanvas = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Save current drawing
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const prevData = canvas.width > 0 && canvas.height > 0
+      ? ctx.getImageData(0, 0, canvas.width, canvas.height)
+      : null;
 
-    canvas.width = document.documentElement.scrollWidth;
-    canvas.height = document.documentElement.scrollHeight;
+    const w = document.documentElement.scrollWidth;
+    const h = document.documentElement.scrollHeight;
+    canvas.width = w;
+    canvas.height = h;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
 
-    // Restore drawing
-    ctx.putImageData(imageData, 0, 0);
+    if (prevData) ctx.putImageData(prevData, 0, 0);
   }, []);
 
   useEffect(() => {
@@ -32,29 +36,25 @@ const PenCanvas = () => {
     const observer = new ResizeObserver(resizeCanvas);
     observer.observe(document.body);
     window.addEventListener('resize', resizeCanvas);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('resize', resizeCanvas);
-    };
+    return () => { observer.disconnect(); window.removeEventListener('resize', resizeCanvas); };
   }, [resizeCanvas]);
 
-  const getPos = (e: React.PointerEvent) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return { x: 0, y: 0 };
-    return {
-      x: e.clientX - rect.left + window.scrollX,
-      y: e.clientY - rect.top + window.scrollY,
-    };
-  };
+  // Correct position: page-relative coords
+  const getPos = (e: React.PointerEvent) => ({
+    x: e.pageX,
+    y: e.pageY,
+  });
 
   const startDraw = (e: React.PointerEvent) => {
     if (tool === 'none') return;
+    e.preventDefault();
     setIsDrawing(true);
     lastPos.current = getPos(e);
   };
 
   const draw = (e: React.PointerEvent) => {
     if (!isDrawing || tool === 'none') return;
+    e.preventDefault();
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!ctx || !lastPos.current) return;
@@ -67,19 +67,19 @@ const PenCanvas = () => {
 
     if (tool === 'pen') {
       ctx.strokeStyle = 'oklch(50% 0.22 25)';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.5;
       ctx.lineCap = 'round';
       ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 0.85;
+      ctx.globalAlpha = 0.9;
     } else if (tool === 'highlighter') {
-      ctx.strokeStyle = 'oklch(85% 0.18 90)';
-      ctx.lineWidth = 16;
-      ctx.lineCap = 'square';
+      ctx.strokeStyle = 'oklch(88% 0.18 90)';
+      ctx.lineWidth = 18;
+      ctx.lineCap = 'butt';
       ctx.globalCompositeOperation = 'multiply';
-      ctx.globalAlpha = 0.35;
+      ctx.globalAlpha = 0.4;
     } else if (tool === 'eraser') {
       ctx.strokeStyle = 'white';
-      ctx.lineWidth = 20;
+      ctx.lineWidth = 24;
       ctx.lineCap = 'round';
       ctx.globalCompositeOperation = 'destination-out';
       ctx.globalAlpha = 1;
@@ -88,15 +88,11 @@ const PenCanvas = () => {
     ctx.stroke();
     ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
-
     lastPos.current = pos;
     if (!hasDrawn) setHasDrawn(true);
   };
 
-  const endDraw = () => {
-    setIsDrawing(false);
-    lastPos.current = null;
-  };
+  const endDraw = () => { setIsDrawing(false); lastPos.current = null; };
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
@@ -106,27 +102,22 @@ const PenCanvas = () => {
     setHasDrawn(false);
   };
 
-  const cursorStyle = tool === 'pen'
-    ? 'crosshair'
+  const cursorClass = tool === 'pen'
+    ? 'cursor-crosshair'
     : tool === 'highlighter'
-    ? 'text'
+    ? 'cursor-text'
     : tool === 'eraser'
-    ? 'cell'
-    : 'auto';
+    ? 'cursor-cell'
+    : 'cursor-auto';
 
   return (
     <>
-      {/* Drawing canvas overlay */}
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 z-30"
+        className={`absolute top-0 left-0 z-30 ${cursorClass}`}
         style={{
           pointerEvents: tool !== 'none' ? 'auto' : 'none',
-          cursor: cursorStyle,
           touchAction: 'none',
-          position: 'absolute',
-          top: 0,
-          left: 0,
         }}
         onPointerDown={startDraw}
         onPointerMove={draw}
@@ -135,33 +126,19 @@ const PenCanvas = () => {
       />
 
       {/* Toolbar */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 px-3 py-2 rounded-full bg-[var(--color-paper-2)] border border-[var(--color-rule)] shadow-lg backdrop-blur-sm">
-        <ToolBtn
-          active={tool === 'pen'}
-          onClick={() => setTool(tool === 'pen' ? 'none' : 'pen')}
-          label="Red pen"
-        >
+      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 px-3 py-2 rounded-full bg-[var(--color-paper-2)]/95 border border-[var(--color-rule)] shadow-lg backdrop-blur-sm">
+        <ToolBtn active={tool === 'pen'} onClick={() => setTool(tool === 'pen' ? 'none' : 'pen')} label="Red pen">
           <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M13.5 3.5l3 3M4 13l9-9 3 3-9 9H4v-3z" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </ToolBtn>
-
-        <ToolBtn
-          active={tool === 'highlighter'}
-          onClick={() => setTool(tool === 'highlighter' ? 'none' : 'highlighter')}
-          label="Highlighter"
-        >
+        <ToolBtn active={tool === 'highlighter'} onClick={() => setTool(tool === 'highlighter' ? 'none' : 'highlighter')} label="Highlighter">
           <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5">
             <rect x="7" y="2" width="6" height="14" rx="1" transform="rotate(15 10 9)" />
             <path d="M6 16h8" strokeLinecap="round" />
           </svg>
         </ToolBtn>
-
-        <ToolBtn
-          active={tool === 'eraser'}
-          onClick={() => setTool(tool === 'eraser' ? 'none' : 'eraser')}
-          label="Eraser"
-        >
+        <ToolBtn active={tool === 'eraser'} onClick={() => setTool(tool === 'eraser' ? 'none' : 'eraser')} label="Eraser">
           <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M7 13l6-6 3 3-6 6H7v-3z" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M4 17h12" strokeLinecap="round" />
@@ -171,31 +148,23 @@ const PenCanvas = () => {
         <div className="w-px h-5 bg-[var(--color-rule)] mx-1" />
 
         {hasDrawn && (
-          <button
-            onClick={clearCanvas}
-            className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-[var(--color-ink-faint)] hover:text-[var(--color-accent)] transition-colors"
-            aria-label="Clear all marks"
-          >
+          <button onClick={clearCanvas} className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-[var(--color-ink-faint)] hover:text-[var(--color-accent)] transition-colors" aria-label="Clear all marks">
             Clear
           </button>
         )}
-
         <button
           onClick={() => setTool('none')}
-          className={`px-2 py-1 text-[10px] font-mono uppercase tracking-wider transition-colors ${
-            tool === 'none' ? 'text-[var(--color-accent)]' : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
-          }`}
-          aria-label="Browse mode (disable pen)"
+          className={`px-2 py-1 text-[10px] font-mono uppercase tracking-wider transition-colors ${tool === 'none' ? 'text-[var(--color-accent)]' : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'}`}
+          aria-label="Browse mode"
         >
           Browse
         </button>
       </div>
 
-      {/* Hint on first load */}
       {!hasDrawn && tool === 'pen' && (
-        <div className="fixed top-20 right-6 z-50 animate-fade-up">
+        <div className="fixed top-20 right-4 z-50 animate-fade-up">
           <div className="px-3 py-2 rounded bg-[var(--color-paper-2)] border border-[var(--color-rule)] shadow-md text-[11px] text-[var(--color-ink-muted)] max-w-[180px]">
-            Draw on this page with the red pen &mdash; mark what interests you.
+            Draw on this page &mdash; mark what interests you.
           </div>
         </div>
       )}
@@ -203,20 +172,9 @@ const PenCanvas = () => {
   );
 };
 
-function ToolBtn({ active, onClick, label, children }: {
-  active: boolean; onClick: () => void; label: string; children: React.ReactNode;
-}) {
+function ToolBtn({ active, onClick, label, children }: { active: boolean; onClick: () => void; label: string; children: React.ReactNode }) {
   return (
-    <button
-      onClick={onClick}
-      aria-label={label}
-      aria-pressed={active}
-      className={`p-2 rounded-full transition-colors ${
-        active
-          ? 'bg-[var(--color-accent)] text-white'
-          : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]'
-      }`}
-    >
+    <button onClick={onClick} aria-label={label} aria-pressed={active} className={`p-2 rounded-full transition-colors ${active ? 'bg-[var(--color-accent)] text-white' : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]'}`}>
       {children}
     </button>
   );

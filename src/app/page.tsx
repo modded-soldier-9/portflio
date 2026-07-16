@@ -10,21 +10,27 @@ import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import PenCanvas from '@/components/PenCanvas';
 
+const LAST_UPDATED = '16 July 2025';
+
 export default function Home() {
   return (
-    <div className="relative">
+    <div className="relative min-h-screen">
       <PenCanvas />
       <Navigation />
       <main id="main" className="sheet">
-        {/* The whole page is one sheet of paper */}
         <div className="sheet-inner">
+          {/* Last updated stamp — top right corner like a date on a document */}
+          <div className="absolute top-4 right-6 font-mono text-[10px] text-[var(--color-ink-faint)] tracking-wide">
+            Last updated: {LAST_UPDATED}
+          </div>
+
           <Hero />
           <hr className="divider" />
           <Experience />
           <hr className="divider" />
           <Projects />
           <hr className="divider" />
-          <div className="grid sm:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <Skills />
             <Education />
           </div>

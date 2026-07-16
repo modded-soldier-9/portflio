@@ -88,9 +88,9 @@ body {
 /* ─── The Sheet ─────────────────────────────────────────────────────────── */
 
 .sheet {
-  max-width: 780px;
+  max-width: 960px;
   margin: 5rem auto 3rem;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
   position: relative;
 }
 
@@ -98,18 +98,16 @@ body {
   background: var(--color-paper-2);
   border: 1px solid var(--color-rule);
   border-radius: 2px;
-  padding: 3rem 3rem 3rem 4.5rem;
+  padding: 3.5rem 4rem 3.5rem 5.5rem;
   position: relative;
   box-shadow:
     0 1px 2px var(--color-shadow),
     0 4px 12px var(--color-shadow),
     0 16px 48px var(--color-shadow-deep),
-    /* Stacked paper effect underneath */
     3px 3px 0 -1px var(--color-paper),
     3px 3px 0 0 var(--color-rule),
     6px 6px 0 -1px var(--color-paper-3),
     6px 6px 0 0 var(--color-rule);
-  /* Ruled lines across the whole page */
   background-image: repeating-linear-gradient(
     to bottom,
     transparent,
@@ -126,7 +124,7 @@ body {
 .sheet-inner::before {
   content: '';
   position: absolute;
-  left: 3rem;
+  left: 3.75rem;
   top: 0; bottom: 0;
   width: 1.5px;
   background: var(--color-margin);
@@ -137,7 +135,7 @@ body {
 .sheet-inner::after {
   content: '';
   position: absolute;
-  left: 1rem;
+  left: 1.25rem;
   top: 50%;
   transform: translateY(-50%);
   width: 12px; height: 12px;
@@ -145,8 +143,8 @@ body {
   background: var(--color-desk);
   border: 1.5px solid var(--color-hole);
   box-shadow:
-    0 -120px 0 -1.5px var(--color-desk), 0 -120px 0 0 var(--color-hole),
-    0 120px 0 -1.5px var(--color-desk), 0 120px 0 0 var(--color-hole);
+    0 -160px 0 -1.5px var(--color-desk), 0 -160px 0 0 var(--color-hole),
+    0 160px 0 -1.5px var(--color-desk), 0 160px 0 0 var(--color-hole);
 }
 
 @keyframes sheet-in {
@@ -206,8 +204,10 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 /* ─── Mobile ────────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
+  .sheet { margin-top: 4rem; padding: 0 0.5rem; }
   .sheet-inner {
-    padding: 2rem 1.5rem 2rem 2.5rem;
+    padding: 2.5rem 1.25rem 2.5rem 2.5rem;
+    box-shadow: 0 2px 8px var(--color-shadow);
   }
   .sheet-inner::before { left: 1.5rem; }
   .sheet-inner::after { display: none; }
