@@ -7,11 +7,19 @@ type Tool = 'pen' | 'highlighter' | 'eraser' | 'circle' | 'rectangle' | 'none';
 const PenCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<Tool>('pen');
+  const [tool, setTool] = useState<Tool>('none');
   const [hasDrawn, setHasDrawn] = useState(false);
+  const [showHint, setShowHint] = useState(true);
   const lastPos = useRef<{ x: number; y: number } | null>(null);
   const shapeStart = useRef<{ x: number; y: number } | null>(null);
   const snapshotRef = useRef<ImageData | null>(null);
+
+  // Default to pen on desktop, none (browse) on mobile
+  useEffect(() => {
+    if (window.innerWidth >= 768) setTool('pen');
+    const timer = setTimeout(() => setShowHint(false), 6000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
@@ -20,8 +28,7 @@ const PenCanvas = () => {
     if (!ctx) return;
 
     const prevData = canvas.width > 0 && canvas.height > 0
-      ? ctx.getImageData(0, 0, canvas.width, canvas.height)
-      : null;
+      ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
 
     const w = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth);
     const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
@@ -39,19 +46,13 @@ const PenCanvas = () => {
     return () => { observer.disconnect(); window.removeEventListener('resize', resizeCanvas); };
   }, [resizeCanvas]);
 
-  const getPos = (e: React.PointerEvent) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return { x: 0, y: 0 };
-    const rect = canvas.getBoundingClientRect();
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
-  };
+  // Use pageX/pageY — most accurate since canvas is at document origin
+  const getPos = (e: React.PointerEvent) => ({ x: e.pageX, y: e.pageY });
 
   const startDraw = (e: React.PointerEvent) => {
     if (tool === 'none') return;
     e.preventDefault();
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
     const pos = getPos(e);
     setIsDrawing(true);
     lastPos.current = pos;
@@ -60,9 +61,7 @@ const PenCanvas = () => {
       shapeStart.current = pos;
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext('2d');
-      if (ctx && canvas) {
-        snapshotRef.current = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      }
+      if (ctx && canvas) snapshotRef.current = ctx.getImageData(0, 0, canvas.width, canvas.height);
     }
   };
 
@@ -72,81 +71,53 @@ const PenCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!ctx || !canvas) return;
-
     const pos = getPos(e);
 
     if (tool === 'circle' || tool === 'rectangle') {
       if (!shapeStart.current || !snapshotRef.current) return;
       ctx.putImageData(snapshotRef.current, 0, 0);
-
-      const sx = shapeStart.current.x;
-      const sy = shapeStart.current.y;
-      const w = pos.x - sx;
-      const h = pos.y - sy;
-
+      const sx = shapeStart.current.x, sy = shapeStart.current.y;
+      const w = pos.x - sx, h = pos.y - sy;
       ctx.strokeStyle = 'oklch(50% 0.22 25)';
       ctx.lineWidth = 2.5;
       ctx.globalAlpha = 0.9;
       ctx.setLineDash([]);
-
       if (tool === 'circle') {
-        const cx = sx + w / 2;
-        const cy = sy + h / 2;
-        const rx = Math.abs(w / 2);
-        const ry = Math.abs(h / 2);
         ctx.beginPath();
-        ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+        ctx.ellipse(sx + w/2, sy + h/2, Math.abs(w/2), Math.abs(h/2), 0, 0, Math.PI*2);
         ctx.stroke();
       } else {
-        ctx.beginPath();
-        ctx.rect(sx, sy, w, h);
-        ctx.stroke();
+        ctx.beginPath(); ctx.rect(sx, sy, w, h); ctx.stroke();
       }
       ctx.globalAlpha = 1;
       return;
     }
 
     if (!lastPos.current) return;
-
     ctx.beginPath();
     ctx.moveTo(lastPos.current.x, lastPos.current.y);
     ctx.lineTo(pos.x, pos.y);
 
     if (tool === 'pen') {
-      ctx.strokeStyle = 'oklch(50% 0.22 25)';
-      ctx.lineWidth = 2.5;
-      ctx.lineCap = 'round';
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 0.9;
+      ctx.strokeStyle = 'oklch(50% 0.22 25)'; ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round'; ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 0.9;
     } else if (tool === 'highlighter') {
-      ctx.strokeStyle = 'oklch(88% 0.18 90)';
-      ctx.lineWidth = 18;
-      ctx.lineCap = 'butt';
-      ctx.globalCompositeOperation = 'multiply';
-      ctx.globalAlpha = 0.4;
+      ctx.strokeStyle = 'oklch(88% 0.18 90)'; ctx.lineWidth = 18;
+      ctx.lineCap = 'butt'; ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = 0.4;
     } else if (tool === 'eraser') {
-      ctx.strokeStyle = 'white';
-      ctx.lineWidth = 28;
-      ctx.lineCap = 'round';
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.globalAlpha = 1;
+      ctx.strokeStyle = 'white'; ctx.lineWidth = 28;
+      ctx.lineCap = 'round'; ctx.globalCompositeOperation = 'destination-out'; ctx.globalAlpha = 1;
     }
-
     ctx.stroke();
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
     lastPos.current = pos;
     if (!hasDrawn) setHasDrawn(true);
   };
 
   const endDraw = () => {
-    if (isDrawing && (tool === 'circle' || tool === 'rectangle')) {
-      if (!hasDrawn) setHasDrawn(true);
-    }
-    setIsDrawing(false);
-    lastPos.current = null;
-    shapeStart.current = null;
-    snapshotRef.current = null;
+    if (isDrawing && (tool === 'circle' || tool === 'rectangle') && !hasDrawn) setHasDrawn(true);
+    setIsDrawing(false); lastPos.current = null;
+    shapeStart.current = null; snapshotRef.current = null;
   };
 
   const clearCanvas = () => {
@@ -157,63 +128,36 @@ const PenCanvas = () => {
     setHasDrawn(false);
   };
 
-  const cursorClass = tool === 'none' ? '' : 'cursor-crosshair';
-
   return (
     <>
       <canvas
         ref={canvasRef}
-        className={`absolute top-0 left-0 z-40 ${cursorClass}`}
-        style={{
-          pointerEvents: tool !== 'none' ? 'auto' : 'none',
-          touchAction: 'none',
-        }}
+        className={`absolute top-0 left-0 z-40 ${tool !== 'none' ? 'cursor-crosshair' : ''}`}
+        style={{ pointerEvents: tool !== 'none' ? 'auto' : 'none', touchAction: tool !== 'none' ? 'none' : 'auto' }}
         onPointerDown={startDraw}
         onPointerMove={draw}
         onPointerUp={endDraw}
-        onPointerLeave={endDraw}
+        onPointerCancel={endDraw}
       />
 
-      {/* Toolbar — always visible, pulsing glow */}
-      <div className="toolbar-dock">
+      {/* Toolbar */}
+      <div className="toolbar-dock" role="toolbar" aria-label="Drawing tools">
         <div className="toolbar-inner">
-          <ToolBtn active={tool === 'pen'} onClick={() => setTool(tool === 'pen' ? 'none' : 'pen')} label="Red pen" color="pen">
-            <PenIcon />
-          </ToolBtn>
-          <ToolBtn active={tool === 'highlighter'} onClick={() => setTool(tool === 'highlighter' ? 'none' : 'highlighter')} label="Highlighter" color="highlight">
-            <HighlightIcon />
-          </ToolBtn>
-          <ToolBtn active={tool === 'circle'} onClick={() => setTool(tool === 'circle' ? 'none' : 'circle')} label="Circle" color="pen">
-            <CircleIcon />
-          </ToolBtn>
-          <ToolBtn active={tool === 'rectangle'} onClick={() => setTool(tool === 'rectangle' ? 'none' : 'rectangle')} label="Rectangle" color="pen">
-            <RectIcon />
-          </ToolBtn>
-          <ToolBtn active={tool === 'eraser'} onClick={() => setTool(tool === 'eraser' ? 'none' : 'eraser')} label="Eraser" color="neutral">
-            <EraserIcon />
-          </ToolBtn>
-
-          <div className="w-px h-5 bg-[var(--color-rule)] mx-1" />
-
-          {hasDrawn && (
-            <button onClick={clearCanvas} className="toolbar-text-btn" aria-label="Clear all">
-              Clear
-            </button>
-          )}
-          <button
-            onClick={() => setTool('none')}
-            className={`toolbar-text-btn ${tool === 'none' ? '!text-[var(--color-accent)]' : ''}`}
-            aria-label="Browse mode"
-          >
-            Browse
-          </button>
+          <TBtn on={tool === 'pen'} click={() => setTool(tool === 'pen' ? 'none' : 'pen')} label="Pen" c="pen"><PenIco /></TBtn>
+          <TBtn on={tool === 'highlighter'} click={() => setTool(tool === 'highlighter' ? 'none' : 'highlighter')} label="Highlight" c="hi"><HiIco /></TBtn>
+          <TBtn on={tool === 'circle'} click={() => setTool(tool === 'circle' ? 'none' : 'circle')} label="Circle" c="pen"><CircIco /></TBtn>
+          <TBtn on={tool === 'rectangle'} click={() => setTool(tool === 'rectangle' ? 'none' : 'rectangle')} label="Rectangle" c="pen"><RectIco /></TBtn>
+          <TBtn on={tool === 'eraser'} click={() => setTool(tool === 'eraser' ? 'none' : 'eraser')} label="Erase" c="neutral"><EraseIco /></TBtn>
+          <span className="toolbar-sep" />
+          {hasDrawn && <button onClick={clearCanvas} className="toolbar-txt" aria-label="Clear">Clear</button>}
+          <button onClick={() => setTool('none')} className={`toolbar-txt ${tool === 'none' ? 'toolbar-txt-active' : ''}`} aria-label="Browse">Browse</button>
         </div>
       </div>
 
-      {!hasDrawn && tool !== 'none' && (
-        <div className="fixed top-20 right-4 z-50 animate-fade-up pointer-events-none">
-          <div className="px-3 py-2 rounded bg-[var(--color-paper-2)] border border-[var(--color-rule)] shadow-md text-[11px] text-[var(--color-ink-muted)] max-w-[200px]">
-            ✏️ Draw, circle, or highlight anything on this page. Click <strong>Browse</strong> to navigate.
+      {showHint && !hasDrawn && (
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 animate-fade-up pointer-events-none">
+          <div className="px-4 py-2.5 rounded-lg bg-[var(--color-paper-2)] border border-[var(--color-accent)]/30 shadow-lg text-xs text-[var(--color-ink-muted)] text-center max-w-[260px]">
+            <span className="text-[var(--color-accent)] font-semibold">✏️ Interactive resume</span> — use the toolbar below to draw, circle, or highlight. Click <strong>Browse</strong> to navigate.
           </div>
         </div>
       )}
@@ -221,19 +165,19 @@ const PenCanvas = () => {
   );
 };
 
-function ToolBtn({ active, onClick, label, children, color }: { active: boolean; onClick: () => void; label: string; children: React.ReactNode; color: 'pen' | 'highlight' | 'neutral' }) {
-  const activeColors = { pen: 'bg-[oklch(50%_0.22_25)]', highlight: 'bg-[oklch(75%_0.15_90)]', neutral: 'bg-[var(--color-ink-faint)]' };
+function TBtn({ on, click, label, children, c }: { on: boolean; click: () => void; label: string; children: React.ReactNode; c: 'pen'|'hi'|'neutral' }) {
+  const bg = { pen: 'bg-[oklch(50%_0.22_25)]', hi: 'bg-[oklch(75%_0.15_90)]', neutral: 'bg-[var(--color-ink-faint)]' };
   return (
-    <button onClick={onClick} aria-label={label} aria-pressed={active} className={`p-2 rounded-full transition-all ${active ? `${activeColors[color]} text-white scale-110` : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]'}`}>
+    <button onClick={click} aria-label={label} aria-pressed={on} className={`toolbar-btn ${on ? `${bg[c]} text-white toolbar-btn-active` : ''}`}>
       {children}
     </button>
   );
 }
 
-const PenIcon = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.5 3.5l3 3M4 13l9-9 3 3-9 9H4v-3z" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-const HighlightIcon = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="7" y="2" width="6" height="14" rx="1" transform="rotate(15 10 9)" /><path d="M6 16h8" strokeLinecap="round" /></svg>;
-const CircleIcon = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><ellipse cx="10" cy="10" rx="7" ry="7" /></svg>;
-const RectIcon = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="14" height="12" rx="1" /></svg>;
-const EraserIcon = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M7 13l6-6 3 3-6 6H7v-3z" strokeLinecap="round" strokeLinejoin="round" /><path d="M4 17h12" strokeLinecap="round" /></svg>;
+const PenIco = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.5 3.5l3 3M4 13l9-9 3 3-9 9H4v-3z" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+const HiIco = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="7" y="2" width="6" height="14" rx="1" transform="rotate(15 10 9)"/><path d="M6 16h8" strokeLinecap="round"/></svg>;
+const CircIco = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><ellipse cx="10" cy="10" rx="7" ry="7"/></svg>;
+const RectIco = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="14" height="12" rx="1"/></svg>;
+const EraseIco = () => <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M7 13l6-6 3 3-6 6H7v-3z" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 17h12" strokeLinecap="round"/></svg>;
 
 export default PenCanvas;
