@@ -40,9 +40,17 @@ const ContactForm = () => {
           <label htmlFor="msg" className="block font-mono text-[10px] text-[var(--color-ink-faint)] uppercase tracking-wider mb-1">Message</label>
           <textarea id="msg" required rows={4} value={form.message} onChange={e => setForm({...form, message: e.target.value})} className={`${inputClass} resize-none`} />
         </div>
-        <button type="submit" className="px-5 py-2.5 text-sm font-medium rounded-sm bg-[var(--color-ink)] text-[var(--color-paper)] hover:opacity-80 transition-opacity">
-          Send via WhatsApp
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button type="submit" className="px-5 py-2.5 text-sm font-medium rounded-sm bg-[var(--color-ink)] text-[var(--color-paper)] hover:opacity-80 transition-opacity">
+            Send via WhatsApp
+          </button>
+          <a
+            href={`mailto:${siteConfig.contact.email}`}
+            className="px-5 py-2.5 text-sm font-medium rounded-sm border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors"
+          >
+            Email directly
+          </a>
+        </div>
       </form>
     </div>
   );
