@@ -1,7 +1,7 @@
 const groups = [
   { title: 'Security', skills: ['Threat Detection', 'Vulnerability Assessment', 'Penetration Testing', 'Network Security', 'API Security', 'Security Auditing'] },
   { title: 'Cloud & Ops', skills: ['AWS', 'Cloud Architecture', 'Linux', 'System Administration', 'Disaster Recovery'] },
-  { title: 'Development', skills: ['Python', 'JavaScript', 'TypeScript', 'Next.js', 'SQL', 'API Development', 'HTML/CSS'] },
+  { title: 'Development', skills: ['Python', 'JavaScript', 'TypeScript', 'Next.js', 'React', 'SQL', 'API Development', 'HTML/CSS'] },
 ];
 
 const Skills = () => {
