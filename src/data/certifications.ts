@@ -3,7 +3,7 @@ import type { CertificationGroup } from '@/types';
 export const certificationGroups: CertificationGroup[] = [
   {
     title: 'AWS Academy Certifications',
-    icon: '☁️',
+    icon: '',
     certifications: [
       {
         name: 'AWS Academy Graduate - AWS Academy Cloud Architecting',
@@ -23,7 +23,7 @@ export const certificationGroups: CertificationGroup[] = [
   },
   {
     title: 'Microsoft Certifications',
-    icon: '🔷',
+    icon: '',
     certifications: [
       {
         name: 'Microsoft Cybersecurity Analyst',
@@ -36,7 +36,7 @@ export const certificationGroups: CertificationGroup[] = [
   },
   {
     title: 'Google Cybersecurity Certifications',
-    icon: '🔍',
+    icon: '',
     certifications: [
       {
         name: 'Google Cybersecurity',
@@ -105,7 +105,7 @@ export const certificationGroups: CertificationGroup[] = [
   },
   {
     title: 'Web Development Certifications',
-    icon: '💻',
+    icon: '',
     certifications: [
       {
         name: 'Responsive Web Design',

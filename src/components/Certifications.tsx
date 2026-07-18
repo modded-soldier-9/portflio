@@ -8,7 +8,7 @@ const Certifications = () => {
         {certificationGroups.map((group) => (
           <div key={group.title}>
             <h3 className="font-mono text-xs text-ink-faint uppercase tracking-wide mb-2">
-              {group.icon} {group.title}
+              {group.title}
             </h3>
             <ul className="space-y-2">
               {group.certifications.map((cert, i) => (
